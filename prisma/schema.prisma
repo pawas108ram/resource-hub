@@ -1,0 +1,346 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  id Int @id @default(autoincrement())
+  name String?
+  hashedPassword String?
+  bio String?
+  portfolio String?
+  email String? @unique
+  image String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  emailVerified DateTime?
+  profileLink String @unique @default(cuid())
+  
+  accounts Account[]
+  ownSheet Sheet[]
+  sharedSheet SheetUser[]
+  ownResource Resource[]
+  sharedResource ResourceUser[]
+  requestee Request[] @relation("Requestee")
+  requestor Request[] @relation("Requestor")
+  ownComments Comment[]
+  replies UserReplies[]
+
+
+
+  
+  
+
+
+  
+}
+
+
+
+model Account{
+  id                Int  @id @default(autoincrement())
+  userId             Int
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Sheet{
+  id Int @id @default(autoincrement())
+  authorId Int
+  author User @relation(fields: [authorId],references: [id],onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title String?
+  description String?
+  isPublic Boolean @default(false)
+  url String?
+  
+  users SheetUser[] 
+  request Request[]
+  comments Comment[]
+  questions Question[]
+}
+
+model SheetUser{
+  id Int @id @default(autoincrement())
+  sheetId Int 
+  sheet Sheet @relation(fields: [sheetId],references: [id],onDelete: Cascade)
+  userId Int
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+
+}
+model ResourceUser{
+  id Int @id @default(autoincrement())
+  resourceId Int
+  resource Resource @relation(fields: [resourceId],references: [id],onDelete: Cascade)
+  userId Int
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+
+}
+
+model Resource{
+  id Int @id @default(autoincrement())
+  authorId Int
+  author User @relation(fields: [authorId],references: [id],onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title String?
+  description String?
+  isPublic Boolean @default(false)
+  url String?
+  users ResourceUser[]
+  comments Comment[]
+  tags ResouceTag[]
+  images String[]
+  links String[]
+  videos String[]
+
+  
+}
+
+model Request{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  body String?
+  requesteeId Int
+  sheetId Int
+  sheet Sheet @relation(fields: [sheetId],references: [id],onDelete: Cascade)
+  requestee User @relation("Requestee",fields: [requesteeId],references: [id],onDelete: Cascade)
+  requestorId Int
+  requestor User @relation("Requestor",fields: [requestorId],references: [id],onDelete: Cascade)
+  status Status @default(PENDING)
+}
+
+model Comment{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  body String?
+  authorId Int
+  author User @relation(fields: [authorId],references: [id],onDelete: Cascade)
+  replies UserReplies[]
+  sheetId Int?
+  sheet Sheet? @relation(fields: [sheetId],references: [id],onDelete: Cascade)
+  resourceId Int?
+  resource Resource? @relation(fields: [resourceId],references: [id],onDelete: Cascade)
+  questionId Int?
+  question Question? @relation(fields: [questionId],references: [id],onDelete: Cascade)
+  solutionId Int?
+  solution Solution? @relation(fields: [solutionId],references: [id],onDelete: Cascade)
+
+  
+
+
+
+}
+model UserReplies{
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+  commentId Int
+  comment Comment @relation(fields: [commentId],references: [id],onDelete: Cascade)
+
+}
+
+
+model Question{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  likes Int @default(0)
+  dislikes Int @default(0)
+  title String
+  tags QuestionTag[]
+  body String
+  
+  sheetId Int
+  sheet Sheet @relation(fields: [sheetId],references: [id],onDelete: Cascade)
+  comments Comment[]
+  solutions Solution[]
+
+
+
+}
+
+model Solution{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  likes Int @default(0)
+  dislikes Int @default(0)
+  body String
+  title String
+  code String
+  images String[]
+  video String[]
+  questionId Int
+  question Question @relation(fields: [questionId],references: [id],onDelete: Cascade)
+  comments Comment[]
+}
+
+enum QuestionTag{
+  Array
+  String
+  Searching
+  Sorting
+  Graph
+  Tree
+  DynamicProgramming
+  Greedy
+  Backtracking
+  BitManipulation
+  Math
+  Geometry
+  GameTheory
+  DataStructure
+  Hashing
+  Stack
+  Queue
+  Heap
+  LinkedList
+  BinarySearchTree
+  BinaryIndexedTree
+  SegmentTree
+  Trie
+  DisjointSet
+  FenwickTree
+  GraphTheory
+  ShortestPath
+  MinimumSpanningTree
+  TopologicalSort
+  EulerianPath
+  BipartiteGraph
+  FlowNetwork
+  NetworkFlow
+  MaximumFlow
+  MinCut
+  MaxCut
+  Matching
+  HopcroftKarp
+  Dinic
+  EdmondsKarp
+  FordFulkerson
+  BellmanFord
+  FloydWarshall
+  Dijkstra
+  Johnson
+  Prim
+  Kruskal
+  Tarjan
+  Kosaraju
+  SuffixArray
+  SuffixTree
+  LCPArray
+  ZAlgorithm
+  KMPAlgorithm
+  RabinKarp
+  Other
+}
+
+enum ResouceTag{
+  DataStructure
+  WebDevelopment
+  MachineLearning
+  DeepLearning
+  ArtificialIntelligence
+  CompetitiveProgramming
+  SystemDesign
+  OperatingSystem
+  Database
+  Networking
+   Array
+  String
+  Searching
+  Sorting
+  Graph
+  Tree
+  DynamicProgramming
+  Greedy
+  Backtracking
+  BitManipulation
+  Math
+  Geometry
+  GameTheory
+  
+  Hashing
+  Stack
+  Queue
+  Heap
+  LinkedList
+  BinarySearchTree
+  BinaryIndexedTree
+  SegmentTree
+  Trie
+  DisjointSet
+  FenwickTree
+  GraphTheory
+  ShortestPath
+  MinimumSpanningTree
+  TopologicalSort
+  EulerianPath
+  BipartiteGraph
+  FlowNetwork
+  NetworkFlow
+  MaximumFlow
+  MinCut
+  MaxCut
+  Matching
+  HopcroftKarp
+  Dinic
+  EdmondsKarp
+  FordFulkerson
+  BellmanFord
+  FloydWarshall
+  Dijkstra
+  Johnson
+  Prim
+  Kruskal
+  Tarjan
+  Kosaraju
+  SuffixArray
+  SuffixTree
+  LCPArray
+  ZAlgorithm
+  KMPAlgorithm
+  RabinKarp
+  Other
+
+}
+
+enum Status{
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
