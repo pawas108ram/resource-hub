@@ -46,7 +46,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ onClose, currentUser }) =
                   <SubHeading body='Edit User' className='text-gray-700 border-b-4 border-gray-800 w-full' />
                   <form onSubmit={handleSubmit(onSubmit)} className='p-4 flex flex-col gap-4'>
                       <Input type='text' label='Name' register={register} id='name' errors={errors} className='w-full' isLoading={isLoading} />
-                      <TextArea label='Bio' register={register} id='bio' className='w-full' />
+                      <TextArea placeholder='Enter your bio' label='Bio' register={register} id='bio' className='w-full' />
                       <div>
                     <label
                       htmlFor="photo"
