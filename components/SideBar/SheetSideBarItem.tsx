@@ -11,13 +11,13 @@ import { DeleteSheet } from "@/app/_actions/DeleteSheet";
 import SettingButton from "../buttons/SheetSettingButton";
 import { Tooltip } from "@mui/material";
 import { FullSheetType } from "@/app/(dashboard-layout)/resource/layout";
-interface SheetSideBarItemProps {
+interface SheetSideBarItemProp {
   sheet?: FullSheetType;
 
   userSheet?: FullSheetType;
 }
 
-const SheetSideBarItem: React.FC<SheetSideBarItemProps> = ({
+const SheetSideBarItem: React.FC<SheetSideBarItemProp> = ({
   sheet,
   userSheet,
 }) => {
