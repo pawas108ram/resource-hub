@@ -45,7 +45,7 @@ const UpdateSheetModal = ({ resource, onClose }: { resource: Resource, onClose: 
         <SubHeading body='Update Resource' className='text-center text-gray-800' />
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 bg-gray-300 p-4 rounded'>
           <Input register={register} label='Title' id='title' type='text' className='w-full' errors={errors} required />
-          <TextArea register={register} label='Decription' id='description' className='w-full' cols={5} rows={5} />
+          <TextArea placeholder='Resource Description' register={register} label='Decription' id='description' className='w-full' cols={5} rows={5} />
           <CheckBox register={register} id='isPublic' isLoading={isLoading} />
           <Button type='submit' disabled={isLoading}  >Update</Button>
         </form>
