@@ -25,10 +25,26 @@ model User{
   sharedSheet SheetUser[]
   ownResource Resource[]
   sharedResource ResourceUser[]
-  requestee Request[] @relation("Requestee")
-  requestor Request[] @relation("Requestor")
+  
   ownComments Comment[]
-  replies UserReplies[]
+  
+  sheetsLikes SheetLikes[]
+  resourceLikes ResourceLikes[]
+  sheetDislikes SheetDislikes[]
+  resourceDislikes ResourceDislikes[]
+  commentLikes CommentLikes[]
+  commentDislikes CommentDislikes[]
+  questionLikes QuestionLikes[]
+  questionDislikes QuestionDislikes[]
+  questionSolutionLikes Solution[]
+  solutionDislikes SolutionDislikes[]
+  solutionLikes SolutionLikes[]
+  seenSolutions SolutionViews[]
+  questionStatus QuestionUserStatus[]
+  tasks TaskUserStatus[]
+  coins Int @default(400)
+  keys Int @default(3)
+  
 
 
 
@@ -37,6 +53,22 @@ model User{
 
 
   
+}
+
+model SheetDislikes{
+  id Int @id @default(autoincrement())
+  sheetId Int
+  sheet Sheet @relation(fields: [sheetId],references: [id],onDelete: Cascade)
+  userId Int
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+}
+
+model ResourceDislikes{
+  id Int @id @default(autoincrement())
+  resourceId Int
+  resource Resource @relation(fields: [resourceId],references: [id],onDelete: Cascade)
+  userId Int
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
 }
 
 
@@ -69,12 +101,43 @@ model Sheet{
   title String?
   description String?
   isPublic Boolean @default(false)
-  url String?
+  likes SheetLikes[]
+  dilikes SheetDislikes[]
+  
+  
   
   users SheetUser[] 
-  request Request[]
+  
   comments Comment[]
+  folders Folder[]
   questions Question[]
+  keys Int?
+  status PublishStatus @default(UNPUBLISHED)
+}
+
+enum PublishStatus{
+  UNPUBLISHED
+  PUBLISHED
+}
+
+model Folder{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title String?
+  description String?
+  sheetId Int
+  sheet Sheet @relation(fields: [sheetId],references: [id],onDelete: Cascade)
+  
+  questions Question[]
+}
+
+model SheetLikes{
+  id Int @id @default(autoincrement())
+  sheetId Int
+  sheet Sheet @relation(fields: [sheetId],references: [id],onDelete: Cascade)
+  userId Int
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
 }
 
 model SheetUser{
@@ -103,29 +166,116 @@ model Resource{
   title String?
   description String?
   isPublic Boolean @default(false)
-  url String?
+  
   users ResourceUser[]
   comments Comment[]
-  tags ResouceTag[]
-  images String[]
-  links String[]
-  videos String[]
+  tags ResourceTag[]
+  tasks Task[]
+  
+  
+
+  
+  
+  likes ResourceLikes[]
+  dislikes ResourceDislikes[]
+  instructions String[]
+  keys Int?
+  status PublishStatus @default(UNPUBLISHED)
+
 
   
 }
 
-model Request{
-  id Int @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  body String?
-  requesteeId Int
-  sheetId Int
-  sheet Sheet @relation(fields: [sheetId],references: [id],onDelete: Cascade)
-  requestee User @relation("Requestee",fields: [requesteeId],references: [id],onDelete: Cascade)
-  requestorId Int
-  requestor User @relation("Requestor",fields: [requestorId],references: [id],onDelete: Cascade)
-  status Status @default(PENDING)
+model Task {
+  id               Int       @id @default(autoincrement())
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  title            String?   // Consider making it non-nullable if it's essential
+  description      String?
+  resourceId       Int
+  resource         Resource  @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  
+  
+  expectedDuration String    // Consider using an appropriate type for durations
+
+  questionLinks QuestionLinks[] 
+  fileLinks     FileLinks[] 
+  imageLinks    ImageLinks[] 
+  videoLinks    VideoLinks[] 
+  websiteLinks  WebsiteLinks[]
+  taskStatus   TaskUserStatus[]
 }
+
+model TaskUserStatus{
+  id Int @id @default(autoincrement())
+  status TaskStatus @default(UNCOMPLETE)
+  taskId Int
+  task Task @relation(fields: [taskId],references: [id],onDelete: Cascade)
+  userId Int
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+}
+
+enum TaskStatus{
+  PENDING
+  COMPLETE
+  UNCOMPLETE
+  LATER
+}
+
+model QuestionLinks {
+  id     Int    @id @default(autoincrement())
+  link   String
+  title  String
+  taskId Int
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  
+}
+
+model FileLinks {
+  id     Int    @id @default(autoincrement())
+  link   String
+  title  String
+  taskId Int
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  
+}
+model ImageLinks{
+  id     Int    @id @default(autoincrement())
+  link   String
+  title  String
+  taskId Int
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+}
+
+model VideoLinks{
+  id     Int    @id @default(autoincrement())
+  link   String
+  title  String
+  taskId Int
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+}
+
+model WebsiteLinks{
+  id     Int    @id @default(autoincrement())
+  link   String
+  title  String
+  taskId Int
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+}
+
+ 
+
+
+
+model ResourceLikes{
+  id Int @id @default(autoincrement())
+  resourceId Int
+  resource Resource @relation(fields: [resourceId],references: [id],onDelete: Cascade)
+  userId Int
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+}
+
+
 
 model Comment{
   id Int @id @default(autoincrement())
@@ -134,7 +284,7 @@ model Comment{
   body String?
   authorId Int
   author User @relation(fields: [authorId],references: [id],onDelete: Cascade)
-  replies UserReplies[]
+   
   sheetId Int?
   sheet Sheet? @relation(fields: [sheetId],references: [id],onDelete: Cascade)
   resourceId Int?
@@ -143,34 +293,56 @@ model Comment{
   question Question? @relation(fields: [questionId],references: [id],onDelete: Cascade)
   solutionId Int?
   solution Solution? @relation(fields: [solutionId],references: [id],onDelete: Cascade)
+  likes CommentLikes[]
+  dislikes CommentDislikes[]
+  replies   Comment[] @relation("CommentToReply")
+  parentId  Int?
+  parent    Comment?  @relation("CommentToReply", fields: [parentId], references: [id])
+
+  
 
   
 
 
 
 }
-model UserReplies{
+
+
+
+model CommentLikes{
   id Int @id @default(autoincrement())
-  userId Int
-  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
   commentId Int
   comment Comment @relation(fields: [commentId],references: [id],onDelete: Cascade)
-
+  userId Int
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
 }
+
+model CommentDislikes{
+  id Int @id @default(autoincrement())
+  commentId Int
+  comment Comment @relation(fields: [commentId],references: [id],onDelete: Cascade)
+  userId Int
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+}
+
 
 
 model Question{
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  likes Int @default(0)
-  dislikes Int @default(0)
+  likes QuestionLikes[]
+  dislikes QuestionDislikes[]
   title String
   tags QuestionTag[]
-  body String
+  links String[]
+  questionStatus  QuestionUserStatus[]
   
-  sheetId Int
-  sheet Sheet @relation(fields: [sheetId],references: [id],onDelete: Cascade)
+  sheetId Int?
+  sheet Sheet? @relation(fields: [sheetId],references: [id],onDelete: Cascade)
+  difficulty Difficulty @default(Recruit)
+  folderId Int?
+  folder Folder? @relation(fields: [folderId],references: [id],onDelete: Cascade)
   comments Comment[]
   solutions Solution[]
 
@@ -178,12 +350,44 @@ model Question{
 
 }
 
+enum QuestionStatus{
+  UNATTEMPTED
+  REVISED
+  SOLVED
+  SKIPPED
+}
+
+model QuestionUserStatus{
+  id Int @id @default(autoincrement())
+  status QuestionStatus @default(UNATTEMPTED)
+  questionId Int
+  question Question @relation(fields: [questionId],references: [id],onDelete: Cascade)
+  userId Int
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+}
+
+model QuestionLikes{
+  id Int @id @default(autoincrement())
+  questionId Int
+  question Question @relation(fields: [questionId],references: [id],onDelete: Cascade)
+  userId Int
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+}
+
+model QuestionDislikes{
+  id Int @id @default(autoincrement())
+  questionId Int
+  question Question @relation(fields: [questionId],references: [id],onDelete: Cascade)
+  userId Int
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+}
+
 model Solution{
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  likes Int @default(0)
-  dislikes Int @default(0)
+  likes SolutionLikes[]
+  dislikes SolutionDislikes[]
   body String
   title String
   code String
@@ -192,6 +396,71 @@ model Solution{
   questionId Int
   question Question @relation(fields: [questionId],references: [id],onDelete: Cascade)
   comments Comment[]
+  type SolutionType
+  language Languages
+  accessType AccessType
+  author User @relation(fields: [authorId],references: [id],onDelete: Cascade)
+  authorId Int
+  timeComplexity Complexity @default(Constant)
+
+  spaceComplexity Complexity @default(Constant)
+  seenBy SolutionViews[]
+}
+
+model SolutionViews{
+  id Int @id @default(autoincrement())
+  solutionId Int
+  solution Solution @relation(fields: [solutionId],references: [id],onDelete: Cascade)
+  userId Int
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+}
+
+model SolutionLikes{
+  id Int @id @default(autoincrement())
+  solutionId Int
+  solution Solution @relation(fields: [solutionId],references: [id],onDelete: Cascade)
+  userId Int
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+}
+model SolutionDislikes{
+  id Int @id @default(autoincrement())
+  solutionId Int
+  solution Solution @relation(fields: [solutionId],references: [id],onDelete: Cascade)
+  userId Int
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+}
+enum AccessType{
+  Public
+  Private
+  Protected
+}
+enum SolutionType{
+  BruteForce
+  Optimal
+  Optimum
+  
+}
+enum Languages{
+  C
+  Cpp
+  Java
+  Python
+  Javascript
+  Typescript
+  Golang
+  Rust
+  Kotlin
+  Swift
+  Scala
+  Haskell
+  Clojure
+  Lua
+  Perl
+  R
+  Ruby
+  Bash
+  PHP
+  Other
 }
 
 enum QuestionTag{
@@ -250,10 +519,20 @@ enum QuestionTag{
   ZAlgorithm
   KMPAlgorithm
   RabinKarp
+  BinarySearch
+  SlidingWindow
+  TwoPointer
+  DivideAndConquer
+  Recursion
+  Memoization
+  NumberTheory
+  SieveOfEratosthenes
+  
   Other
 }
 
-enum ResouceTag{
+enum ResourceTag {
+
   DataStructure
   WebDevelopment
   MachineLearning
@@ -264,7 +543,7 @@ enum ResouceTag{
   OperatingSystem
   Database
   Networking
-   Array
+  Array
   String
   Searching
   Sorting
@@ -277,7 +556,6 @@ enum ResouceTag{
   Math
   Geometry
   GameTheory
-  
   Hashing
   Stack
   Queue
@@ -323,10 +601,32 @@ enum ResouceTag{
 
 }
 
+
 enum Status{
   PENDING
   ACCEPTED
   REJECTED
+}
+
+
+
+enum Difficulty{
+  Recruit 
+Veteran
+Elite 
+Legendary 
+}
+
+enum Complexity{
+  Constant
+  Logarithmic
+  Linear
+  Quadratic
+  Cubic
+  Exponential
+  Factorial
+  Other
+
 }
 
 

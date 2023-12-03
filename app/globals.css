@@ -1,4 +1,75 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import '../node_modules/@syncfusion/ej2-base/styles/bootstrap5.css';
+@import '../node_modules/@syncfusion/ej2-icons/styles/bootstrap5.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/bootstrap5.css';
+@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/bootstrap5.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/bootstrap5.css';
+@import '../node_modules/@syncfusion/ej2-lists/styles/bootstrap5.css';
+@import '../node_modules/@syncfusion/ej2-navigations/styles/bootstrap5.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/bootstrap5.css';
+@import '../node_modules/@syncfusion/ej2-richtexteditor/styles/bootstrap5.css';
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
+
+    .slick-list{
+        margin-right: -30px;
+    }
+    .slick-slide>div{
+        margin:0 15px;
+    }
+    .slick-slide>div:nth-child(1){
+        margin-left: 0px;
+    }
+  
+    .truncatestyle-1 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* number of lines to show */
+                line-clamp: 1;
+        -webkit-box-orient: vertical;
+     }
+     .truncatestyle-2{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* number of lines to show */
+                line-clamp: 2;
+        -webkit-box-orient: vertical;
+     }
+     .truncatestyle-3{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* number of lines to show */
+                line-clamp: 3;
+        -webkit-box-orient: vertical;
+     }
+
+     .text-single-line {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+  
  

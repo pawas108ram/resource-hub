@@ -49,14 +49,18 @@ const AuthForm = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
     if (variant === 'REGISTER') {
-      axios.post('/api/register',data).then(() => signIn('credentials',{...data})).catch((err) => toast.error('Something went wrong try again')).finally(() => {
+      axios.post('/api/register', data).then(() => signIn('credentials', { ...data })).catch((err) => {
+        toast.error(err.response.data);
+        
+
+      }).finally(() => {
         setIsLoading(false);
         reset();})
     }
     else {
       signIn('credentials', { ...data, redirect: false }).then((callback) => {
         if (callback?.error) {
-          toast.error('Something went wrong try again')
+          toast.error(callback.error)
         }
         if (!callback?.error && callback?.ok) {
           toast.success('Logged in successfully');
@@ -83,7 +87,7 @@ const AuthForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="p-4 rounded bg-gray-300/60 shadow-md xs:max-w-md xs:w-full flex flex-col items-center gap-6"
+      className="p-4 rounded bg-white/10 shadow-md xs:w-full lg:w-2/6  flex flex-col items-center lg:gap-6 xs:gap-3"
     >
       <SubHeading
         body={
@@ -124,7 +128,7 @@ const AuthForm = () => {
       <Button type="submit" fullWidth>
         {variant === "LOGIN" ? "SignIn" : "SignUp"}
       </Button>
-      <div className="w-5/6 border-[1px] border-gray-600 rounded p-2 flex flex-col items-center gap-2">
+      <div className="lg:w-5/6 xs:w-full border-[1px] border-gray-600 rounded p-2 flex flex-col items-center gap-2">
         <SubHeading
           body={variant === "LOGIN" ? "Or Sign In with" : "Or Sign Up With"}
         />

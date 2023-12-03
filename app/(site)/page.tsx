@@ -7,8 +7,8 @@ import AuthForm from './components/AuthForm'
 
 const AuthenticationPage = () => {
   return (
-      <div className='flex flex-col gap-4 items-center justify-center min-h-screen lg:w-full xs:w-4/5 xs:mx-auto text-center'>
-          <Image src={logo} alt='logo' width={200} height={200} className='xs:hidden md:block'/>
+      <div className='flex flex-col gap-4 items-center justify-center min-h-screen w-full xs:mx-auto text-center xs:pb-12 bg-black text-white '>
+         
           <Heading body="Resource Hub" />
           <SubHeading body="Resource Hub is all in one platform for all your resource needs related to Tech" className='xs:hidden md:block' />
           <AuthForm />

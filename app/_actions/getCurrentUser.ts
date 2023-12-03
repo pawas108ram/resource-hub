@@ -3,7 +3,7 @@ import prisma from "../libs/prismadb";
 import getSession from "./getSession";
 
 
-export async function getCurrentUser() {
+export const getCurrentUser=async()=> {
     try {
         const session = await getSession();
         if (!session?.user?.email) {
@@ -25,3 +25,4 @@ export async function getCurrentUser() {
     
     }
 }
+

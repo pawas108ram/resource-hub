@@ -2,6 +2,7 @@ import React from 'react'
 import { IconType } from 'react-icons';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { Tooltip } from '@mui/material';
 
 
 interface DesktopSidebarItemProps {
@@ -20,12 +21,14 @@ const DesktopSidebarItem: React.FC<DesktopSidebarItemProps> = ({ href, label, ic
         }
     }
   return (
-      <div className=''>
-          <Link href={href} onClick={handleClick} className={clsx(`hover:scale-125 hover:bg-black/80  rounded hover:text-white duration-300 p-3 transition inline-block`,
-          isActive? 'bg-black/90 text-white  scale-125':'bg-gray-500 hover:scale-110 ')}> <Icon size={24} /><span className='sr-only'>{label}</span></Link>
+      <Tooltip title={label} placement='right-start'>
+          <div className=''>
+              <Link href={href} onClick={handleClick} className={clsx(`hover:scale-125 hover:bg-black/80  rounded hover:text-white duration-300 p-3 transition inline-block`,
+              isActive? 'bg-black/90 text-white  scale-125':'bg-gray-500 hover:scale-110 ')}> <Icon size={24} /><span className='sr-only'>{label}</span></Link>
           
-      
-    </div>
+          
+              </div>
+      </Tooltip>
   )
 }
 

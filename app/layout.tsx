@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import ToasterContext from './context/ToasterContext';
 import AuthContext from './context/AuthContext';
+import { EdgeStoreProvider } from '@/lib/edgestore';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}><AuthContext><ToasterContext/>{children}</AuthContext></body>
+      <body className={inter.className}><AuthContext><ToasterContext/><EdgeStoreProvider>{children}</EdgeStoreProvider></AuthContext></body>
     </html>
   )
 }
