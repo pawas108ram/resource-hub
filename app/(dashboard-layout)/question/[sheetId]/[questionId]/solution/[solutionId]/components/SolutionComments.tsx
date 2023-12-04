@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { SolutionCommentType } from '../page'
 import SolutionComment from './SolutionComment'
 import { User } from '@prisma/client'
-import { baseUrl } from '@/app/_actions/getAllSolutions'
+
 import { pusherClient } from '@/app/libs/pusher'
 import { FaComment } from 'react-icons/fa'
 
@@ -11,8 +11,8 @@ const SolutionComments = ({ solutionId, currentUser }: { solutionId: number,curr
   const [comments, setComments] = useState<SolutionCommentType[]>([]);
   useEffect(() => {
     (async () => {
-      const url = baseUrl();
-      const comments = await fetch(`${url}/api/comment/solution/${solutionId}`, {
+      
+      const comments = await fetch(`/api/comment/solution/${solutionId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
