@@ -14,15 +14,17 @@ export const baseUrl = () => {
 
 export const getAllSolutions=async(questionId: string, query: string)=> {
   const encodedQuery = encodeURI(query);
-
+  const url = baseUrl();
   
   
   
   
   
   const req = await fetch(
-    `/api/solution/allSolution/${questionId}/?${encodedQuery}`,
-      { cache: 'no-cache', headers: { 'Content-Type': 'application/json' } }
+    `${url}/api/solution/allSolution/${questionId}/?${encodedQuery}`,
+    {
+      cache: 'no-cache',
+    }
   );
   if (req.status === 200) {
     const res = await req.json();

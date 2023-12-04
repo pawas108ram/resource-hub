@@ -3,8 +3,8 @@ import { baseUrl } from "./getAllSolutions";
 
 
 export const  getQuestion=async(questionId: string, currentUserId: number)=> {
-    
-    const res = await fetch(`/api/questions/question`, {
+    const url = baseUrl();
+    const res = await fetch(`${url}/api/questions/question`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
