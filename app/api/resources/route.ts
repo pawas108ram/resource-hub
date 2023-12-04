@@ -53,7 +53,7 @@ export async function POST(req: Request, res: Response) {
                
             }
         });
-        pusherServer.trigger('resource', 'create:resource', resource);
+        await pusherServer.trigger('resource', 'create:resource', resource);
         return NextResponse.json(resource, { status: 201 });
     }
     catch (error) {

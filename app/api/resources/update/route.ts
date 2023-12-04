@@ -31,7 +31,7 @@ export async function PUT(req: Request, res: Response) {
         if (!updatedResource) {
             return new NextResponse('Resource could not be updated', { status: 500 });
         }
-        pusherServer.trigger('resource', 'update:resource', updatedResource);
+        await pusherServer.trigger('resource', 'update:resource', updatedResource);
         return new NextResponse('Resource updated', { status: 200 });
         
     }

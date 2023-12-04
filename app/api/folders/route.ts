@@ -117,7 +117,7 @@ export async function POST(req: Request, res: Response) {
               },
             },
           });
-        pusherServer.trigger('folder','create:folder',sheet);
+        await pusherServer.trigger('folder','create:folder',sheet);
 
         
 

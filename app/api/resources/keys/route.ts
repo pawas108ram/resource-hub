@@ -43,8 +43,8 @@ export async function PUT(req: Request, res: Response) {
         });
         if (!resource) return new NextResponse('Resource Not Found', { status: 404 });
         
-        pusherServer.trigger('resource', 'user:resource', resource);
-        pusherServer.trigger('resource','remove:resource', resource.id)
+        await pusherServer.trigger('resource', 'user:resource', resource);
+        await pusherServer.trigger('resource','remove:resource', resource.id)
         if (!ResourceCreateNewUser) return new NextResponse('Sheet Creation Failed', { status: 400 });
         const updateCurrentUser = await prisma.user.update({
             where: {

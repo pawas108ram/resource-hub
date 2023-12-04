@@ -50,7 +50,7 @@ export async function POST(req: Request, res: Response) {
                 dislikes: true,
             }
         })
-        pusherServer.trigger(`question-${parseInt(questionId)}`, 'question:dislike',{likes:question?.likes.length,dislikes:question?.dislikes.length,questionId:parseInt(questionId)});
+        await pusherServer.trigger(`question-${parseInt(questionId)}`, 'question:dislike',{likes:question?.likes.length,dislikes:question?.dislikes.length,questionId:parseInt(questionId)});
         const sheet = await prisma.sheet.findFirst({
             where: {
                 questions: {

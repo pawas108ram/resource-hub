@@ -22,7 +22,7 @@ export async function DELETE(req: Request, { params }: { params: { solutionId: s
          if (!solution) {
              return new NextResponse('Solution not found', { status: 404 });
         }
-        pusherServer.trigger(`question-${solution.questionId}`, 'delete:solution', solution.id);
+        await pusherServer.trigger(`question-${solution.questionId}`, 'delete:solution', solution.id);
          return NextResponse.json(solution, { status: 200 });
     }
     catch (error) {

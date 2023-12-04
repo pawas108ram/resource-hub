@@ -70,7 +70,7 @@ export async function PUT(req: Request, res: Response) {
         if (!updatedQuestion) {
             return new NextResponse('Question not found', { status: 404 });
         }
-        pusherServer.trigger('question', 'update:question', updatedQuestion);
+        await pusherServer.trigger('question', 'update:question', updatedQuestion);
         return NextResponse.json(existingUser, { status: 200 });
 
 

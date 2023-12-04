@@ -97,7 +97,7 @@ export async function POST(req: Request, res: Response) {
         if (!task) {
             return new NextResponse('Something went wrong', { status: 500 });
         }
-        pusherServer.trigger(`resource-${resourceId}`,'create:task', task);
+        await pusherServer.trigger(`resource-${resourceId}`,'create:task', task);
         
         return new NextResponse('Task Created Successfully', { status: 201 });
     }

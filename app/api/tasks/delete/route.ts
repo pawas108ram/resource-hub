@@ -16,7 +16,7 @@ export async function DELETE(req: Request, res: Response) {
         if(!deleteTask){
             return new NextResponse('Task not found', { status: 404 });
         }
-        pusherServer.trigger('task','delete:task',deleteTask.id)
+        await pusherServer.trigger('task','delete:task',deleteTask.id)
         return new NextResponse('Task Deleted', { status: 200 });
     }
     catch (error) {

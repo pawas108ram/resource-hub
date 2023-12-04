@@ -115,8 +115,8 @@ export async function POST(req: Request, res: Response) {
         if (!userResource) {
             return new NextResponse('User could not be added to the resource', { status: 500 });
         }
-        pusherServer.trigger('resource', 'add:resource', existingResource);
-        pusherServer.trigger('resource', 'remove:resource', userResource.resourceId);
+        await pusherServer.trigger('resource', 'add:resource', existingResource);
+        await pusherServer.trigger('resource', 'remove:resource', userResource.resourceId);
         return NextResponse.json(userResource, { status: 201 });
     }
    

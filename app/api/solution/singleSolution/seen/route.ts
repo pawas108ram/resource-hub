@@ -41,7 +41,7 @@ export async function POST(req: Request, res: Response) {
         if (!solution) {
             return new NextResponse('Solution not found', { status: 404 });
         }
-        pusherServer.trigger(`solution-${solution.id}`, 'seen:solution', solution.id);
+        await pusherServer.trigger(`solution-${solution.id}`, 'seen:solution', solution.id);
         return new NextResponse('Solution Seen', { status: 200 });
     }
     catch (error) {

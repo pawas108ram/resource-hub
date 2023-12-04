@@ -36,7 +36,7 @@ export async function POST(req: Request, res: Response) {
 
         }
     });
-        pusherServer.trigger(`comment`, 'create:comment', sheetComment);
+      await   pusherServer.trigger(`comment`, 'create:comment', sheetComment);
     return NextResponse.json(sheetComment, { status: 201 });
     }
     catch (error) {

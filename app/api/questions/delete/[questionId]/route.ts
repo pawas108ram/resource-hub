@@ -42,7 +42,7 @@ export async function DELETE(req: Request, { params }: { params: { questionId: s
 
             
            
-           pusherServer.trigger('question','delete:folderquestion',question.id)
+           await pusherServer.trigger('question','delete:folderquestion',question.id)
             if (!questionDelete || !questionFolderUpdate) {
                 return new NextResponse('Question Deletion Failed', { status: 500 });
             }
@@ -55,7 +55,7 @@ export async function DELETE(req: Request, { params }: { params: { questionId: s
                 id: parseInt(questionId)
             }
         });
-        pusherServer.trigger('question','delete:question',question.id)
+        await pusherServer.trigger('question','delete:question',question.id)
         if (!questionDelete) {
             return new NextResponse('Question Deletion Failed', { status: 500 });
         }

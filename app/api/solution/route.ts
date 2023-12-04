@@ -88,7 +88,7 @@ export async function POST(req: Request) {
             
             
         });
-        pusherServer.trigger(`question-${questionId}`, 'create:solution', solution)
+        await pusherServer.trigger(`question-${questionId}`, 'create:solution', solution)
         
       
         

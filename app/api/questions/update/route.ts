@@ -44,7 +44,7 @@ export async function PUT(req: Request, res: Response) {
                 }
             }
         });
-        pusherServer.trigger('question', 'update:question', updatedQuestion);
+        await pusherServer.trigger('question', 'update:question', updatedQuestion);
         if (!updatedQuestion) {
             return new NextResponse('Question not found', { status: 404 });
         }

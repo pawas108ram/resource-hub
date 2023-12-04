@@ -45,7 +45,7 @@ export async function DELETE(req: Request, { params }: { params: IParams }) {
           id: parseInt(sheetId),
         },
       });
-        pusherServer.trigger('sheet','delete:sheet',deletedSheet.id)
+        await pusherServer.trigger('sheet','delete:sheet',deletedSheet.id)
      
       if (!deleteUsers || !deletedSheet) {
         return new NextResponse("Sheet could not be deleted propely", {

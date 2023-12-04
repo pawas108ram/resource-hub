@@ -138,7 +138,7 @@ export async function PUT(req: Request, res: Response) {
                   },
 
             });
-            pusherServer.trigger('folder','update:folder',folderSheet);
+            await pusherServer.trigger('folder','update:folder',folderSheet);
         }
         
 

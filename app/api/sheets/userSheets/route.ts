@@ -105,8 +105,8 @@ export async function POST(req: Request, res: Response) {
             return new NextResponse('Sheet author could not be found', { status: 500 });
         }
         
-        pusherServer.trigger('sheet', 'user:sheet', sheetAuthor);
-        pusherServer.trigger('sheet', 'remove:sheet', sheetAuthor.id)
+        await pusherServer.trigger('sheet', 'user:sheet', sheetAuthor);
+        await pusherServer.trigger('sheet', 'remove:sheet', sheetAuthor.id)
         return NextResponse.json(userSheet, { status: 201 });
     }
    

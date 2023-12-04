@@ -72,7 +72,7 @@ export async function POST(req: Request, res: Response) {
         if (!comments) {
             return new NextResponse('Comment not found', { status: 404 });
         }
-        pusherServer.trigger(`comment`, 'dislike:solutioncomment', {likes:comments.likes.length,dislikes:comments.dislikes.length,commentId:parseInt(commentId)});
+        await pusherServer.trigger(`comment`, 'dislike:solutioncomment', {likes:comments.likes.length,dislikes:comments.dislikes.length,commentId:parseInt(commentId)});
         return NextResponse.json('Disliked', { status: 200 });
 
 

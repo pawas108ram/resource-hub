@@ -74,7 +74,7 @@ export async function PUT(req: Request, res: Response) {
         if (!solutionquestion) {
             return new NextResponse('Solution Update Error', { status: 500 });
         }
-        pusherServer.trigger(`question-${solutionquestion.question.id}`, 'update:solution', updatedSolution);
+        await pusherServer.trigger(`question-${solutionquestion.question.id}`, 'update:solution', updatedSolution);
         return new NextResponse('Solution Updated Successfully', { status: 200 });
     }
     catch (error) {

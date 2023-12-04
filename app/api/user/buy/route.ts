@@ -26,7 +26,7 @@ export async function PUT(req: Request, res: Response) {
 
         if (!updateCurrentUser) return new NextResponse('User Update Failed', { status: 400 });
 
-        pusherServer.trigger('user','update:user',updateCurrentUser);
+        await pusherServer.trigger('user','update:user',updateCurrentUser);
         
 
         return NextResponse.json('Purchase was Successfull', { status: 201 });

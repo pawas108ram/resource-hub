@@ -37,7 +37,7 @@ export async function POST(req: Request, res: Response) {
         if(!solutionComment){
             return new NextResponse('Solution Comment couldnt be created ',{status:404});
         }
-        pusherServer.trigger(`solution-${solutionId}`, 'create:comment', solutionComment);
+        await pusherServer.trigger(`solution-${solutionId}`, 'create:comment', solutionComment);
         return NextResponse.json('Comment Created Successfully',{status:201});
             
         

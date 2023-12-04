@@ -23,7 +23,7 @@ export async function PUT(req: Request, res: Response) {
         if(!updatedComment) {
             return new NextResponse('Comment not found',{status:404});
         }
-        pusherServer.trigger(`solution-${updatedComment.solutionId}`, 'update:comment', updatedComment)
+        await pusherServer.trigger(`solution-${updatedComment.solutionId}`, 'update:comment', updatedComment)
 
         return NextResponse.json('Comment Updated Successfully',{status:200});
         

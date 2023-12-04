@@ -36,7 +36,7 @@ export async function PUT(req: Request, res: Response) {
         if(!updatedUser){
             return new NextResponse('User could not be updated', { status: 500 });
         }
-        pusherServer.trigger('user', 'user:update', 'User Updated');
+        await pusherServer.trigger('user', 'user:update', 'User Updated');
         return NextResponse.json(updatedUser, { status: 200 });
     }
     catch (error) {

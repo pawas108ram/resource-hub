@@ -32,7 +32,7 @@ export async function PUT(req: Request, res: Response) {
             if(!addTaskUser) {
                 return new NextResponse('Error in adding task status', { status: 500 });
             }
-            pusherServer.trigger('task', 'task:status', addTaskUser);
+           await  pusherServer.trigger('task', 'task:status', addTaskUser);
             return new NextResponse('Task status added successfully', { status: 200 });
         }
         const updateTaskUser = await prisma.taskUserStatus.update({
@@ -69,7 +69,7 @@ export async function PUT(req: Request, res: Response) {
                 websiteLinks: true,
             }
         });
-        pusherServer.trigger('task', 'task:status', allTasks);
+        await pusherServer.trigger('task', 'task:status', allTasks);
         console.log(updateTaskUser);
         
         return new NextResponse('Task status updated successfully', { status: 200 });

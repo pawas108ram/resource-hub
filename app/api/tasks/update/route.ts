@@ -137,7 +137,7 @@ export async function PUT(req: Request, res: Response) {
         if(!updatedTask ) {
             return new NextResponse('Task Update Error', { status: 500 });
         }
-        pusherServer.trigger('task', 'update:task', updatedTask);
+        await pusherServer.trigger('task', 'update:task', updatedTask);
         return new NextResponse('Task Updated Successfully', { status: 200 });
     }
     catch (error) {

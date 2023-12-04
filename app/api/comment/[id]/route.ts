@@ -16,7 +16,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
         if(!deleteComment){
             return new NextResponse('Comment could not be deleted', { status: 500 });
         }
-        pusherServer.trigger('comment', 'delete:comment', deleteComment.id);
+        await pusherServer.trigger('comment', 'delete:comment', deleteComment.id);
         return NextResponse.json(deleteComment, { status: 200 });
 
     }

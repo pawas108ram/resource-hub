@@ -45,8 +45,8 @@ export async function PUT(req: Request, res: Response) {
                 keys: currentKeys - keysNeeded
             }
         });
-        pusherServer.trigger('sheet', 'user:sheet', SheetCreateNewUser);
-        pusherServer.trigger('sheet','remove:sheet',SheetCreateNewUser.id)
+        await pusherServer.trigger('sheet', 'user:sheet', SheetCreateNewUser);
+        await pusherServer.trigger('sheet','remove:sheet',SheetCreateNewUser.id)
         if (!updateCurrentUser) return new NextResponse('User Update Failed', { status: 400 });
         return NextResponse.json(updateCurrentUser, { status: 201 });
 

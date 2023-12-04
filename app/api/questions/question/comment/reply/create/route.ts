@@ -37,7 +37,7 @@ export async function POST(req: Request, res: Response) {
         if(!comment){
             return new NextResponse('Comment not found', { status: 404 });
         }
-        pusherServer.trigger(`comment`, 'create:reply', comment);
+        await pusherServer.trigger(`comment`, 'create:reply', comment);
         return new NextResponse('Reply created', { status: 200 });
 
 

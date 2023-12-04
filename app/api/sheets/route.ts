@@ -44,7 +44,7 @@ export async function POST(req:Request,res:Response){
                 }
             }
         });
-        pusherServer.trigger('sheet', 'create:sheet', Sheet);
+        await pusherServer.trigger('sheet', 'create:sheet', Sheet);
         if (!Sheet) return new NextResponse('Sheet Creation Failed', { status: 400 });
         console.log(Sheet);
 

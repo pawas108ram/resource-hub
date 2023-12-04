@@ -16,7 +16,7 @@ export async function DELETE(req: Request, { params }: { params: { folderId: str
         if (!folder) {
             return new NextResponse('Folder Deletion Failed', { status: 500 });
         }
-        pusherServer.trigger('folder','delete:folder',folder.id)
+        await pusherServer.trigger('folder','delete:folder',folder.id)
         return new NextResponse('Folder Deleted Successfully', { status: 200 });
     }
     catch (err) {

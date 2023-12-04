@@ -32,7 +32,7 @@ export async function PUT(req: Request, res: Response) {
         if(!updatedComment){
             return new NextResponse('Comment could not be updated', { status: 500 });
         }
-        pusherServer.trigger('comment', 'update:comment', updatedComment);
+        await pusherServer.trigger('comment', 'update:comment', updatedComment);
         
         return NextResponse.json(updatedComment, { status: 200 });
     }

@@ -31,7 +31,7 @@ export async function POST(req: Request, res: Response) {
         if (!resourceComment) {
             return new NextResponse('Resource Comment not found', { status: 404 });
         }
-        pusherServer.trigger('comment','create:comment',resourceComment)
+        await pusherServer.trigger('comment','create:comment',resourceComment)
     return new NextResponse('Resource Comment Created ', { status: 201 });
     }
     catch (error) {

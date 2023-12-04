@@ -19,7 +19,7 @@ export async function PUT(req: Request, res: Response) {
         if(!updateSheet) {
             return new NextResponse('Sheet update failed', { status: 400 });
         }
-        pusherServer.trigger('sheet', 'sheet:status', updateSheet.id);
+        await pusherServer.trigger('sheet', 'sheet:status', updateSheet.id);
         return NextResponse.json(updateSheet, { status: 200 });
             
 

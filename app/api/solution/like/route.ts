@@ -60,7 +60,7 @@ export async function POST(req: Request, res: Response) {
         if(!question){
             return new NextResponse('Question Not Found',{status:404})
         }
-        pusherServer.trigger(`question-${questionId}`, 'question:like',{likes:question?.likes.length,dislikes:question?.dislikes.length,questionId:parseInt(questionId)});
+        await pusherServer.trigger(`question-${questionId}`, 'question:like',{likes:question?.likes.length,dislikes:question?.dislikes.length,questionId:parseInt(questionId)});
 
         const sheet = await prisma.sheet.findFirst({
             where: {

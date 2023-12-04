@@ -90,8 +90,8 @@ export async function POST(req: Request, res: Response) {
         }
 
     
-        pusherServer.trigger('question', 'create:folderquestion', folderQuestion);
-        pusherServer.trigger('folder', 'create:folderquestion', parseInt(sheetId));
+        await pusherServer.trigger('question', 'create:folderquestion', folderQuestion);
+        await pusherServer.trigger('folder', 'create:folderquestion', parseInt(sheetId));
         return new NextResponse('Folder Question Created Successfully', { status: 200 });
 
         

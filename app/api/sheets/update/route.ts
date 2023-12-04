@@ -28,7 +28,7 @@ try{
     if(!updatedSheet){
         return new NextResponse('Sheet could not be updated', { status: 500 });
     }
-    pusherServer.trigger(`sheet`, 'update:sheet', updatedSheet);
+    await pusherServer.trigger(`sheet`, 'update:sheet', updatedSheet);
     return NextResponse.json(updatedSheet, { status: 200 });
 
 

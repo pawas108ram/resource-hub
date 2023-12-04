@@ -65,7 +65,7 @@ export async function POST(req: Request, res: Response) {
         if (!solution) {
             return new NextResponse('Solution not found', { status: 404 });
         }
-        pusherServer.trigger(`solution-${solution.id}`, 'like:solutionId', solution.id);
+        await pusherServer.trigger(`solution-${solution.id}`, 'like:solutionId', solution.id);
         return new NextResponse('Solution Liked', { status: 200 });
 
 
