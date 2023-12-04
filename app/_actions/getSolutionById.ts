@@ -1,4 +1,4 @@
-import { baseUrl } from "./getAllSolutions";
+
 
 export const getSolutionById=async(solutionId: string)=> {
     

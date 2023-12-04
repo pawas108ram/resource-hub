@@ -1,14 +1,12 @@
 
 import { revalidateTag } from 'next/cache';
-import { baseUrl } from './getAllSolutions';
+
 export const getCommentsBySolutionId=async(solutionId: string)=> {
     try {
-        const url = baseUrl();
-        const comments = await fetch(`${url}/api/comment/solution/${solutionId}`, {
+      
+        const comments = await fetch(`/api/comment/solution/${solutionId}`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            
             cache:'no-store',
             next:{tags:["SolutionComments"]}
         });
