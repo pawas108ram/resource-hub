@@ -21,7 +21,7 @@ const DiscussionPage = async({ params }: { params: { questionId: string, sheetId
   const currentUser=await getCurrentUser();
 
   return (
-    <div className='h-full w-full rounded bg-white/40 flex flex-col gap-3 p-4 '>
+    <div className='h-full w-full rounded bg-white/10 flex flex-col gap-3 p-4 '>
       <SubHeading body='Question Discussion' className='text-white underline' />
       <Content body='Dont Post your solution here, Post your solution in the solution section' className='bg-black/70 py-1 px-2 rounded text-white ' />
       <QuestionCommentCreation questionId={questionId} />

@@ -1,3 +1,4 @@
+import { baseUrlGiver } from "./getQuestionById";
 
 
 
@@ -10,9 +11,9 @@ export const getAllSolutions=async(questionId: string, query: string)=> {
   
   
   
-  
+  const baseUrl = baseUrlGiver();
   const req = await fetch(
-    `/api/solution/allSolution/${questionId}/?${encodedQuery}`,
+    `${baseUrl}/api/solution/allSolution/${questionId}/?${encodedQuery}`,
     {
       cache: 'no-cache',
     }

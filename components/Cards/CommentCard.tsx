@@ -58,10 +58,10 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment,currentUserId }) => {
     return (
       <div className='relative' >
             {replyModal && <ReplyModal onClose={() => setReplyModal(false)} parentComment={comment} />}
-          <div className='flex flex-col  gap-2  lg:p-2 bg-white/70 text-black  rounded xs:p-0.5 '>
+          <div className='flex flex-col  gap-2  lg:p-2 bg-white/10 text-white  rounded xs:p-0.5 '>
               <div className="flex flex-row items-center justify-between">
                   <span className='flex flex-row items-center lg:gap-2 xs:gap-0.5'>
-                      <Image src={comment?.author?.image || '/images/user.png'} alt='avatar' width={40} height={40} className='rounded-full p-1 h-11 w-11' />
+                      <Image src={comment?.author?.image || '/images/user.png'} alt='avatar' width={40} height={40} className='rounded-full p-1 h-11 w-11 bg-white' />
                         <span className='lg:text-lg xs:text-sm font-semibold '>{comment.author.name}</span>
                         <span className='lg:text-sm xs:text-xs font-semibold bg-black/90 text-white py-1 px-4 rounded'>{dateString(new Date(comment.updatedAt))}</span>
                   </span>
@@ -82,7 +82,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment,currentUserId }) => {
                     <button className='lg:text-sm xs:text-xs text-blue-600 font-semibold' onClick={() => setShowReplies((prev) => !prev)}>{showReplies ? <div className='flex flex-row items-center gap-2'>
                         <MdClose size={20} /><span>Hide Replies</span>
                     </div>: 'Show Replies'}</button>
-                  <button className='text-xs text-gray-700 font-bold' onClick={()=>setReplyModal(true)}>Reply </button>
+                  <button className='text-xs text-white font-bold' onClick={()=>setReplyModal(true)}>Reply </button>
                  
                 </div>
                

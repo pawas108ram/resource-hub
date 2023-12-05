@@ -52,7 +52,7 @@ const SingleSolutionPage = async({ params }: { params: { solutionId: string } })
     
     return (
         <>
-            {solution !== undefined ? <div className='flex flex-col gap-2  bg-white/20 w-full    rounded text-white   h-5/6 my-4 p-2 overflow-hidden xs:pb-12 overflow-y-auto '>
+            {solution !== undefined ? <div className='flex flex-col gap-2  bg-white/10 w-full    rounded text-white   h-5/6 my-4 p-2 overflow-hidden xs:pb-12 overflow-y-auto '>
                 <div className='flex flex-row items-start gap-4  w-full '>
                     <Image src={solution.author.image || '/images/user.png'} alt='author' width={50} height={50} className='rounded-full object-cover' />
                     <div className='flex flex-col lg:gap-2 xs:gap-0.5 w-full'>

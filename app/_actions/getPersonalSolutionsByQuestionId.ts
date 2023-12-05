@@ -1,4 +1,5 @@
-export const getSolutionsByQuestionId=async(questionId: number)=> {
+export const getSolutionsByQuestionId = async (questionId: number) => {
+    
     const res = await fetch(`/api/solution/${questionId}`, {
         method: 'GET',
         headers: {

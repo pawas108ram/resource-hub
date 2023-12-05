@@ -77,10 +77,10 @@ const FilterSheetModal = ({ onClose }: { onClose: () => void }) => {
           <div className='lg:w-3/5 xs:w-5/6 bg-black/90  p-4 rounded relative flex flex-col gap-3 xs:h-4/6  '>
               <button onClick={onClose} className='bg-red-500 -top-5 -right-5 p-4 rounded-full absolute'><MdClose /></button>
               <Heading body='Filter Sheets' className='text-center text-white ' />
-              <div className='grid xs:gap-0.5 xs:grid-cols-1 gap-2 lg:grid-cols-2  p-2 rounded bg-black w-full xs:h-full overflow-y-auto'>
+              <div className='grid xs:gap-0.5 xs:grid-cols-1 lg:gap-2 lg:grid-cols-2  p-2 rounded bg-black w-full xs:h-full overflow-y-auto'>
                   <div className='flex flex-col gap-1 col-span-1  '>
                         <span className='lg:text-lg xs:text-sm font-semibold'>Author Name</span>
-                        <input type="text" value={authorName} onChange={(e) => setAuthorName(e.target.value)} className=' rounded  form-input ' placeholder='Enter Author name' />
+                        <input type="text" value={authorName} onChange={(e) => setAuthorName(e.target.value)} className=' rounded  form-input py-1.5' placeholder='Enter Author name' />
                   </div>
                   <div className='flex flex-col gap-1  '>
                         <span className='lg:text-lg xs:text-sm font-semibold'>Filter By Created At </span>

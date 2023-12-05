@@ -14,6 +14,7 @@ import { User } from "@prisma/client";
 import { FullSheetType } from "../resource/layout";
 import { useSearchParams } from "next/navigation";
 import { pusherClient } from "@/app/libs/pusher";
+import { baseUrlGiver } from "@/app/_actions/getQuestionById";
 
 
 
@@ -43,7 +44,8 @@ const SheetPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`/api/sheets/?${encodeURI(searchParamsString || '')}`);
+      const baseUrl = baseUrlGiver();
+      const res = await axios.get(`${baseUrl}/api/sheets/?${encodeURI(searchParamsString || '')}`);
 
       setSheets(res.data);
       setPublicSheets(res.data.filter((sheet: FullSheetType) => sheet.isPublic));

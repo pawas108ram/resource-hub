@@ -562,7 +562,7 @@ const SingleSheetPage = ({ params }: { params: { sheetId: string } }) => {
                 <SubHeading body="Users" className="text-center text-white" />
                 <div className="flex flex-row gap-2 items-center flex-wrap bg-white/20 py-2 rounded px-3 w-full">
                   { sheet.users.length!==0?sheet.users.map((userele) => {
-                    return <div key={userele.user.id} className="flex flex-col gap-1 text-black items-center p-2 bg-blue-400 rounded-full hover:scale-110 transition duration-300  ">
+                    return <div key={userele.user.id} className="flex flex-col gap-1 text-black items-center p-2 bg-blue-600 rounded-full hover:scale-110 transition duration-300  ">
                       <Image src={userele.user.image || '/images/user.png'} alt='avatar' width={20} height={20} className="h-11 w-11 rounded-full object-contain  " />
                       <span className="sr-only">{userele.user.name}</span>
                     </div>
@@ -575,7 +575,7 @@ const SingleSheetPage = ({ params }: { params: { sheetId: string } }) => {
                       <span className="lg:not-sr-only font-semibold text-xl xs:sr-only" >Filters</span>
                       <span className="p-2 rounded-full bg-white/70 text-black "><FaFilter size={20} /></span>
                     </button>
-                    <button className="bg-blue-500 text-white p-2 rounded font-semibold" onClick={()=>removeAllFilter()}>Remove All Filter</button>
+                    <button className="bg-blue-600 text-white p-2 rounded font-semibold" onClick={()=>removeAllFilter()}>Remove All Filter</button>
                   </div>
                 
                 

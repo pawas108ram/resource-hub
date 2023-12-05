@@ -50,10 +50,10 @@ const UpdateResourceModal = ({ resource, onClose }: { resource: Resource, onClos
 
   return (
       <div className='fixed inset-0 pointer-events-all bg-black/60 z-[9999] flex flex-row items-center justify-center'>
-      <div className='bg-white p-4 rounded xs:w-4/5 lg:w-2/5 relative flex flex-col gap-8 '>
+      <div className='bg-black text-white  p-4 rounded xs:w-4/5 lg:w-2/5 relative flex flex-col gap-8 '>
         <button className='absolute -right-5 -top-5 bg-red-600 p-3 rounded-full ' onClick={onClose}><MdClose /></button>
-        <SubHeading body='Update Resource' className='text-center text-gray-800' />
-        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 bg-gray-300 p-4 rounded'>
+        <SubHeading body='Update Resource' className='text-center text-white' />
+        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 bg-white/10 p-4 rounded'>
           <Input register={register} label='Title' id='title' type='text' className='w-full' errors={errors} required />
           <TextArea placeholder='Description of the Resource'register={register} label='Decription' id='description' className='w-full' cols={5} rows={5} />
           <CheckBox register={register} id='isPublic' isLoading={isLoading} />

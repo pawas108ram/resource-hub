@@ -9,7 +9,8 @@ export const  getOwnSheets=async()=> {
         const sheets = await prisma.sheet.findMany({
             where: {
                 authorId:currentUser.id,
-            }
+                
+            },
             
            
         })

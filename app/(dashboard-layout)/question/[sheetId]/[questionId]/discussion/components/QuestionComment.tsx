@@ -72,6 +72,7 @@ const QuestionComment = ({ comment, questionId, currentUser, isReply, parentComm
   const [replies, setReplies] = useState<QuestionCommentType[] | []>([])
   const [likes, setLikes] = useState<number>(comment.likes.length);
   const [dislikes, setDislikes] = useState<number>(comment.dislikes.length);
+  const [commentNew, setCommentNew] = useState<QuestionCommentType>(comment);
   useEffect(() => {
     const fetchReplies = async () => {
       const res = await fetch("/api/questions/question/comment/reply/" + comment.id, {
@@ -90,6 +91,7 @@ const QuestionComment = ({ comment, questionId, currentUser, isReply, parentComm
     };
     fetchReplies();
     pusherClient.subscribe('comment');
+   
     pusherClient.bind('create:reply', (data: QuestionCommentType) => {
       if (data.parentId=== comment.id) {
         setReplies((prev) => [data, ...prev]);
@@ -97,7 +99,12 @@ const QuestionComment = ({ comment, questionId, currentUser, isReply, parentComm
     });
     
     pusherClient.bind('update:comment', (data: QuestionCommentType) => {
-      setReplies((prev) => prev.map((comment) => comment.id === data.id ? data : comment)); 
+      if (data.id=== comment.id) {
+        setCommentNew(data);
+      }
+      else if (data.parentId=== comment.id){
+        setReplies((prev) => prev.map((comment) => comment.id === data.id ? data : comment));
+      }
     });
     pusherClient.bind('like:solutioncomment', (data:{likes:number,dislikes:number,commentId:number}) => {
       if(comment.id===data.commentId){
@@ -113,7 +120,12 @@ const QuestionComment = ({ comment, questionId, currentUser, isReply, parentComm
       }
     })
     pusherClient.bind('delete:comment', (data: number) => {
-      setReplies((prev) => prev.filter((comment) => comment.id !== data));
+      if (comment.id === data) {
+        setCommentNew((prev) => ({ ...prev, body: '[Deleted]' }));
+      } else {
+        setReplies((prev) => prev.filter((comment) => comment.id !== data));
+      }
+      
     });
 
     return () => {
@@ -123,10 +135,11 @@ const QuestionComment = ({ comment, questionId, currentUser, isReply, parentComm
       pusherClient.unbind('delete:comment');
       pusherClient.unbind('like:solutioncomment');
       pusherClient.unbind('dislike:solutioncomment');
+      
     }
    
 
-  }, [comment.id,replies]);
+  }, [comment.id]);
   
   
   
@@ -149,17 +162,17 @@ const QuestionComment = ({ comment, questionId, currentUser, isReply, parentComm
     
   return (
     <>
-      {editModal && <EditQuestionCommentModal onClose={() => setEditModal(false)} comment={comment} />}
-     {replyModal && <CreateQuestionReplyModal onClose={()=>setReplyModal(false)} parentComment={comment} />}
+      {editModal && <EditQuestionCommentModal onClose={() => setEditModal(false)} comment={commentNew} />}
+     {replyModal && <CreateQuestionReplyModal onClose={()=>setReplyModal(false)} parentComment={commentNew} />}
       <div className='flex flex-col lg:gap-1 xs:gap-0.5 w-full bg-black/60 p-2 rounded text-white '>
         {isReply && <span className='lg:text-sm xs:text-xs'>Replying to @{ parentComment?.author.name}</span>}
         <div className='flex flex-row items-start lg:gap-4 '>
 
-          <Image src={comment.author.image || '/images/user.png'} alt='author' width={50} height={50} className='rounded-full object-cover h-7 w-7 bg-blue-300' />
-          <span className='xs:text-xs lg:text-sm' >{comment.author.name}</span>
-          <span className='xs:text-xs lg:text-sm'>Created :{dateString(new Date(comment.createdAt))}</span>
+          <Image src={commentNew.author.image || '/images/user.png'} alt='author' width={50} height={50} className='rounded-full object-cover h-7 w-7 bg-blue-300' />
+          <span className='xs:text-xs lg:text-sm' >{commentNew.author.name}</span>
+          <span className='xs:text-xs lg:text-sm'>Created :{dateString(new Date(commentNew.createdAt))}</span>
         </div>
-        <pre className='bg-white/20 lg:text-sm xs:text-xs p-2 rounded whitespace-break-spaces  '>{comment.body}</pre>
+        <pre className='bg-white/20 lg:text-sm xs:text-xs p-2 rounded whitespace-break-spaces  '>{commentNew.body}</pre>
         <div className='flex flex-row items-center lg:gap-3 xs:gap-1' onMouseEnter={()=>setDeleteButton(true)} onMouseLeave={()=>setDeleteButton(false)}>
           <button className='flex flex-row items-center gap-1 text-green-500' onClick={()=>SheetCommentLikeAction(comment.id)}>
             <BiSolidLike size={16} />

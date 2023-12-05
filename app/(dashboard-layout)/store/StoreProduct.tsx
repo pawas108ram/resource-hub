@@ -45,7 +45,7 @@ const StoreProduct = ({ product,currentUserCoins }: { product: any ,currentUserC
     }
 
   return (
-    <div className="flex flex-col p-2 bg-white col-span-1 rounded text-black gap-2">
+    <div className="flex flex-col p-2 bg-black col-span-1 rounded text-white gap-2">
       <div className="bg-white  flex flex-row items-center justify-center w-full h-[300px] p-3 ">
         <Image
           src={product.imageLinks}
@@ -62,9 +62,9 @@ const StoreProduct = ({ product,currentUserCoins }: { product: any ,currentUserC
               <span>{quantity}</span>
               <button className="bg-red-500 rounded-full p-3" onClick={()=>handleMinus()}><FaMinus/></button>
           </div>
-          <span className="bg-black py-2 px-4 text-white font-medium text-center rounded ">Total cost :{quantity * product.coins}</span>
+          <span className="bg-white py-2 px-4 text-black font-medium text-center rounded ">Total cost :{quantity * product.coins}</span>
           {(quantity*product.coins)>currentUserCoins ?<span className="bg-red-500 py-2 px-4 text-white font-medium text-center rounded">You dont have enough coins</span>:
-         <button className="bg-blue-500  text-white font-semibold lg:text-lg xs:text-sm p-3 rounded" onClick={()=>handleBuy()}>Buy</button>}
+         <button className="bg-blue-600  text-white font-semibold lg:text-lg xs:text-sm p-3 rounded" onClick={()=>handleBuy()}>Buy</button>}
     </div>
   );
 };

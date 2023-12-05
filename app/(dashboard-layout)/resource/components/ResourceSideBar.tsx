@@ -60,7 +60,7 @@ const ResourceSideBar:React.FC<ResourceSideBarProps> = ({ownResources,userResour
     
 
   return (
-      <div className='flex flex-col gap-3 bg-black/80 p-4 w-72 h-screen overflow-y-auto lg:flex xs:hidden '>
+      <div className='flex flex-col gap-3 bg-black p-4 w-72 h-screen overflow-y-auto lg:flex xs:hidden '>
           <Heading body='Search' className='text-gray-100 whitespace-nowrap' />
           <input type="text" name="search" id="search" className='form-input py-2 rounded placeholder:text-xs ' placeholder='Search By Resource Name' value={searchTitle} onChange={(e)=>setSearchTitle(e.target.value)} />
           <SubHeading body='My Resources' className='text-gray-100 whitespace-nowrap' />

@@ -6,7 +6,7 @@ const TextArea = ({ label ,id,rows=3,cols=5,register,className,disabled,placehol
   return (
     <div className={clsx(`flex flex-col gap-2 w-4/5`,className)}>
           <span className='font-medium lg:text-lg xs:text-base  text-white '>{label}</span>
-          <textarea className='form-textarea w-full resize-none lg:text-base xs:text-sm bg-white/10 text-blue-500' placeholder={placeholder} {...register(id,{required:true})}  name={id} id={id} cols={cols} rows={rows}></textarea>
+          <textarea className='form-textarea w-full resize-none lg:text-lg  xs:text-sm bg-white/10 text-white' placeholder={placeholder} {...register(id,{required:true})}  name={id} id={id} cols={cols} rows={rows}></textarea>
       
     </div>
   )

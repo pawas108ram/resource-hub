@@ -1,10 +1,13 @@
 import { getCurrentUser } from "@/app/_actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
+import { getSession } from "next-auth/react";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request, res: Response) {
     try {
+       
         const currentUser = await getCurrentUser();
+
         if (!currentUser || !currentUser.id) {
             return new NextResponse('Unauthorized', { status: 401 });;
         }
@@ -23,6 +26,7 @@ export async function GET(req: Request, res: Response) {
         if (!sheets) {
             return new NextResponse('Not Found', { status: 404 });
         }
+      console.log('My Own Sheets',sheets);
         return NextResponse.json(sheets, { status: 200 });
     }
     catch (error) {

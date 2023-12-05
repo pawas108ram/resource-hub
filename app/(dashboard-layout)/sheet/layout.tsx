@@ -7,6 +7,7 @@ import { FullResourceType, FullSheetType } from '../resource/layout';
 import { pusherClient } from '@/app/libs/pusher';
 import { User } from '@prisma/client';
 import { useSession } from 'next-auth/react';
+import { getOwnSheets } from '@/app/_actions/getOwnSheets';
 
 
 const SheetLayout = ({ children }: { children: React.ReactNode }) => {
@@ -21,23 +22,30 @@ const SheetLayout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
       const fetchData = async () => {
           try {
-              const ownsheets = await fetch('/api/sheets/ownSheets').then((res) => res.json());
-              const ownresources = await fetch('/api/resources/ownResources').then((res) => res.json());
-              const userSheets = await fetch('/api/sheets/userSheets').then((res) => res.json());
-              const userResources = await fetch('/api/resources/userResources').then((res) => res.json());
-              const user = await fetch('/api/user', {
+                const ownsheets = await fetch('/api/sheets/ownSheets')
+              const ownresources = await fetch('/api/resources/ownResources')
+              const userSheets = await fetch('/api/sheets/userSheets')
+              const userResources = await fetch('/api/resources/userResources')
+                const user = await fetch('/api/user', {
                   method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                   },
                     body: JSON.stringify({ email }),
               }).then((res) => res.json());
-                setCurrentUser(user);
-              setUserSheets(userSheets);
-              setUserResources(userResources);
-
-              setOwnSheets(ownsheets);
-              setOwnResources(ownresources);
+              if (ownsheets.ok) {
+                    setOwnSheets(await ownsheets.json());
+                  
+              }
+              if(ownresources.ok){
+                    setOwnResources(await ownresources.json());
+              }
+                if(userSheets.ok){
+                        setUserSheets(await userSheets.json());
+              }
+              if(userResources.ok){
+                        setUserResources(await userResources.json());
+              }
           } catch (error) {
               console.error('Error fetching data:', error);
           }
@@ -52,31 +60,33 @@ const SheetLayout = ({ children }: { children: React.ReactNode }) => {
   }, [email]);
     
     useEffect(() => {
-       pusherClient.subscribe('sheet');
-        pusherClient.bind('create:sheet', (data:FullSheetType) => {
-            if (currentUser?.id === data.authorId) {
-                setOwnSheets((prev) => [...prev,data]);
-            }
-            else {
-                setUserSheets((prev) => [...prev,data]);
-           }
-        });
-        pusherClient.bind('user:sheet', (data: FullSheetType) => {
-            setUserSheets((prev) => {
-                const index = prev.findIndex((sheet) => sheet.id === data.id);
-                if (index === -1) {
-                    return [...prev, data];
+        pusherClient.subscribe('sheet');
+        if (currentUser) {
+            pusherClient.bind('create:sheet', (data: FullSheetType) => {
+                if (currentUser?.id === data.authorId) {
+                    setOwnSheets((prev) => [...prev, data]);
                 }
                 else {
-                    return [...prev]
+                    setUserSheets((prev) => [...prev, data]);
                 }
+            });
+            pusherClient.bind('user:sheet', (data: FullSheetType) => {
+                setUserSheets((prev) => {
+                    const index = prev.findIndex((sheet) => sheet.id === data.id);
+                    if (index === -1) {
+                        return [...prev, data];
+                    }
+                    else {
+                        return [...prev]
+                    }
+                })
             })
-          })
       
-        pusherClient.bind('delete:sheet', (data: number) => {
-            setOwnSheets((prev) => prev.filter((sheet) => sheet.id !== data));
-            setUserSheets((prev) => prev.filter((sheet) => sheet.id !== data));
-        });
+            pusherClient.bind('delete:sheet', (data: number) => {
+                setOwnSheets((prev) => prev.filter((sheet) => sheet.id !== data));
+                setUserSheets((prev) => prev.filter((sheet) => sheet.id !== data));
+            });
+        }
         return () => {
             pusherClient.unsubscribe('sheet');
             pusherClient.unbind('create:sheet');
@@ -87,19 +97,22 @@ const SheetLayout = ({ children }: { children: React.ReactNode }) => {
     }, [currentUser, ownSheets, userSheets])
     
     useEffect(() => {
+
         pusherClient.subscribe('resource');
-        pusherClient.bind('create:resource', (data:FullResourceType) => {
-            if (currentUser?.id === data.authorId) {
-                setOwnResources((prev) => [...prev,data]);
-            }
-            else {
-                setUserResources((prev) => [...prev,data]);
-            }
-        });
-        pusherClient.bind('delete:resource', (data: number) => {
-            setOwnResources((prev) => prev.filter((resource) => resource.id !== data));
-            setUserResources((prev) => prev.filter((resource) => resource.id !== data));
-        });
+        if (currentUser) {
+            pusherClient.bind('create:resource', (data: FullResourceType) => {
+                if (currentUser?.id === data.authorId) {
+                    setOwnResources((prev) => [...prev, data]);
+                }
+                else {
+                    setUserResources((prev) => [...prev, data]);
+                }
+            });
+            pusherClient.bind('delete:resource', (data: number) => {
+                setOwnResources((prev) => prev.filter((resource) => resource.id !== data));
+                setUserResources((prev) => prev.filter((resource) => resource.id !== data));
+            });
+        }
         return () => {
             pusherClient.unsubscribe('resource');
             pusherClient.unbind('create:resource');

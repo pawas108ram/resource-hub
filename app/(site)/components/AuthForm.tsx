@@ -133,7 +133,7 @@ const AuthForm = () => {
           body={variant === "LOGIN" ? "Or Sign In with" : "Or Sign Up With"}
         />
         <AuthSocialButton icon={AiFillGithub} onClick={() => {socialAction('github')}} />
-        <AuthSocialButton icon={AiFillGooglePlusSquare} onClick={() => {socialAction('google')}} />
+        <AuthSocialButton icon={AiFillGooglePlusSquare} isGoogle={true} onClick={() => {socialAction('google')}} />
       </div>
       <div className="flex gap-4 items-center p-2 text-lg font-medium">
         <span>

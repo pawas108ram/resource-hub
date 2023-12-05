@@ -14,7 +14,7 @@ const QuestionNavbar = ({questionId,sheetId}:{questionId:number,sheetId:string})
   const [createSolutionModal, setcreateSolutionModal] = useState(false);
   const router=useRouter();
   return (
-    <div className='p-4 bg-white/40 rounded flex flex-row items-center gap-6 justify-center w-full'>
+    <div className='p-4 bg-white/10 rounded flex flex-row items-center gap-6 justify-center w-full'>
       <Tooltip title={ `Go Back to Sheet ${sheetId}`} placement='left-start'><button onClick={()=>router.push(`/sheet/${sheetId}`)} className='bg-gray-400 p-3 rounded-full text-white'><RiArrowGoBackLine /></button></Tooltip>
       {questionRoutes.map((navele) => (
         <QuestionNavbarElement key={navele.label} label={navele.label} href={navele.href} isActive={navele.isActive} icon={navele.icon}/>

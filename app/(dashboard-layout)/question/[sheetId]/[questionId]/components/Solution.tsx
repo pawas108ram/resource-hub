@@ -40,13 +40,13 @@ const SolutionBody = ({
       <div className="flex flex-row justify-between  bg-white/90 text-black rounded  p-3">
         <Content body={type} className="xs:text-base lg:text-lg" />
         <button
-          className="p-2 rounded-full bg-black/50   font-extrabold"
+          className="p-2 rounded-full bg-black     font-extrabold shadow"
           onClick={() => setShowSolution((prev) => !prev)}
         >
           {showSolution ? (
-            <AiFillUpCircle size={24} color="black" />
+            <AiFillUpCircle size={24} color="white"  />
           ) : (
-            <AiFillDownCircle size={24} color="black" />
+            <AiFillDownCircle size={24} color="white" />
           )}
         </button>
       </div>

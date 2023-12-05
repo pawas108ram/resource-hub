@@ -18,7 +18,7 @@ const DashBoardPage = async () => {
   
   const userSheets = await getUserSheets();
   const userResources = await getUserResources();
-  console.log(process.env.PUSHER_APP_ID,process.env.PUSHER_APP_KEY,process.env.PUSHER_APP_SECRET)
+  
 
 
   return (

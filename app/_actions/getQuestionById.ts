@@ -1,10 +1,14 @@
-import axios from "axios";
+import { NextPageContext } from "next";
+
+export const baseUrlGiver = () => {
+    return process.env.NODE_ENV === "production"?process.env.NEXT_PUBLIC_PRODUCTION_URL as string:process.env.NEXT_PUBLIC_DEVELOPMENT_URL as string;
+}
 
 
 
 export const  getQuestion=async(questionId: string, currentUserId: number)=> {
-   
-    const res = await fetch(`/api/questions/question`, {
+   const baseUrl = baseUrlGiver();
+    const res = await fetch(baseUrl.concat('api/questions/question'), {
         method: "POST",
        
         body: JSON.stringify({

@@ -28,7 +28,7 @@ const QuestionCommentCreation = ({ questionId }: { questionId: string }) => {
   return (
       <div className='flex flex-col gap-3'>
            <TextareaAutosize className='w-full bg-white/20 rounded p-2 form-textarea placeholder:text-white/80 resize-none' minRows={5} placeholder='Post your doubts and queries here' value={body} onChange={(e)=>setBody(e.target.value)} />
-      <button className='py-2 px-4 ring-offset-1 rounded bg-blue-500 ring-1 ring-white self-start font-semibold text-white  ' onClick={()=>handleCreate()}>Start Discussion</button>
+      <button className='py-2 px-4 ring-offset-1 rounded bg-blue-600 ring-1 ring-white self-start font-semibold text-white  ' onClick={()=>handleCreate()}>Start Discussion</button>
       </div>
   )
 }

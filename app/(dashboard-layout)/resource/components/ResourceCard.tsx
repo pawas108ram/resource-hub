@@ -91,7 +91,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ publicResource, privateReso
               <span className='flex flex-row items-center gap-2 text-green-500 bg-gray-100 lg:py-2 lg:px-6 rounded xs:p-1'> <ThumbsUp size={32}/>:{publicResource.likes?.length || '0'}</span>
               <span className='flex flex-row items-center gap-2 text-red-500  bg-gray-100 lg:py-2 lg:px-6 rounded xs:p-1 '><ThumbsDown size={32}/>:{publicResource.dislikes?.length || '0'}</span>
             </div>
-            <Tooltip title='Comments' placement='right-start' ><button className='bg-gray-300 py-3 px-6 flex flex-row items-center gap-4 text-black rounded text-lg justify-center font-semibold ' onClick={()=>setCommentModal(true)} ><span className='xs:hidden xl:flex'>Comments/Post Comment</span> <MdComment size={24} /></button></Tooltip>
+            <Tooltip title='Comments' placement='right-start' ><button className='bg-blue-600 py-3 px-6 flex flex-row items-center gap-4 text-white rounded text-lg justify-center font-semibold  ' onClick={()=>setCommentModal(true)} ><span className='xs:hidden xl:flex'>Comments/Post Comment</span> <MdComment size={24} /></button></Tooltip>
               
           </div>}
           {privateResource && <div className='flex flex-col gap-2 rounded p-2 bg-black text-white justify-center items-center '>

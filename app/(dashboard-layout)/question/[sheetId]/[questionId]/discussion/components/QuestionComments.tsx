@@ -49,16 +49,14 @@ const QuestionComments = ({
         prev.filter((comment) => comment.id !== data)
       );
     });
-    pusherClient.bind("update:comment", (data: QuestionCommentType) => {
-      setQuestionComments((prev) =>
-        prev.map((comment) => (comment.id === data.id ? data : comment))
-      );
-    });
+
+    
+    
     return () => {
       pusherClient.unsubscribe(`question-${questionId}`);
       pusherClient.unsubscribe("comment");
       pusherClient.unbind("create:comment");
-      pusherClient.unbind("update:comment");
+    
       pusherClient.unbind("delete:comment");
     };
   }, [questionId]);

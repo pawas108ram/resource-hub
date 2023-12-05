@@ -36,7 +36,7 @@ const UpdateModal = ({comment,onClose}:{comment:FullSheetCommentType,onClose:()=
         <SubHeading body='Update Comment' className='text-center ' />
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 bg-white/10 p-4 rounded'>
          
-          <TextArea placeholder='Enter Comment Body' register={register} label='Comment Body' id='body' className='w-full' cols={5} rows={4} />
+          <TextArea placeholder='Enter Comment Body' register={register} label='Comment Body' id='body' className='w-full text-white' cols={5} rows={4}  />
           
           <Button type='submit' disabled={isLoading}  >Update</Button>
         </form>

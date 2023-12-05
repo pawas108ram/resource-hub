@@ -2,7 +2,7 @@ import { User } from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import Token from '@/public/images/toke.png'
+import Pendrive from '@/public/images/pendrive.png'
 import Coin from '@/public/images/coin.png'
 import { dateString } from '@/app/libs/utility functions/dateString'
 
@@ -25,8 +25,8 @@ const UserCard = ({user,ranking}:{user:User,ranking:number}) => {
                   <span className='whitespace-nowrap'>{user.coins} coins</span>
               </div>
               <div className='flex flex-row items-center gap-1 w-1/2 justify-center '>
-                  <Image src={Token} width={20} height={20} alt='coin' className='h-9 w-9 rounded-full object-cover' />
-                  <span>{user.keys} keys</span>
+                  <Image src={Pendrive} width={20} height={20} alt='coin' className='h-9 w-9 rounded-full object-cover' />
+                  <span>{user.keys} pendrives</span>
               </div>
           </div>
       
