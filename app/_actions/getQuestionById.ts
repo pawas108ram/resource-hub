@@ -1,7 +1,7 @@
 import { NextPageContext } from "next";
 
 export const baseUrlGiver = () => {
-    return process.env.NODE_ENV === "production"?process.env.NEXT_PUBLIC_PRODUCTION_URL as string:process.env.NEXT_PUBLIC_DEVELOPMENT_URL as string;
+    return process.env.NEXT_PUBLIC_MODE === "production"?process.env.NEXT_PUBLIC_PRODUCTION_URL as string:process.env.NEXT_PUBLIC_DEVELOPMENT_URL as string;
 }
 
 
