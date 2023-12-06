@@ -6,7 +6,7 @@ import { Difficulty, Folder, PublishStatus, QuestionStatus, QuestionTag, Sheet, 
 
 import React, {  useEffect, useMemo, useState } from "react";
 import { dateString } from '../../../libs/utility functions/dateString';
-import { MdComment, MdEdit, MdLock, MdPublic, MdSearch } from "react-icons/md";
+import { MdComment, MdEdit, MdLock, MdPublic, MdPublishedWithChanges, MdSearch, MdUnpublished } from "react-icons/md";
 
 import QuestionCreation from "./components/QuestionCreation";
 import QuestionCard from "./components/QuestionCard";
@@ -31,6 +31,7 @@ import PublishStatusModal from "@/components/modals/PublishStatusModal";
 import { pusherClient } from "@/app/libs/pusher";
 import { FullSheetType } from "../../resource/layout";
 import ProgressModal from "./components/ProgressModal";
+import clsx from "clsx";
 
 
 
@@ -460,20 +461,20 @@ const SingleSheetPage = ({ params }: { params: { sheetId: string } }) => {
          
            
                   <div className="flex flex-row gap-3 w-full">
-                    <div className="flex flex-col gap-4 w-4/5">
-                      <div className="flex flex-row items-center  justify-between w-full    ">
+                    <div className="flex flex-col gap-4 w-5/6 items-center">
+                      <div className="flex flex-row items-center  xs:justify-between w-full lg:justify-center lg:gap-4   ">
                                   <Heading body={`${sheet.title}`} className="self-center flex-shrink-0 xs:truncate   xs:text-xl lg:text-3xl flex-1 text-center " />
                       </div>
                       <SubHeading body={`Made By :${sheet.author.name}`} className="self-center text-white xs:line-clamp-2 xs:text-sm lg:text-lg lg:overflow-visible flex-shrink-0" />
-                      <div className="flex flex-row items-center gap-4 self-center text-sm ">
-                          <div className="flex flex-col xs:gap-0.5 xs:text-xs lg:text-sm lg:flex-row lg:gap-4">
+                      <div className="flex flex-row items-center gap-4  text-sm w-full xs:justify-between lg:justify-center lg:gap-4 self-center  ">
+                          <div className="flex flex-col xs:gap-0.5 xs:text-xs lg:text-sm lg:flex-row lg:gap-4 ">
                             <span className="whitespace-nowrap">Created :{dateString(new Date(sheet.createdAt))}</span>
                             <span className="whitespace-nowrap">Updated :{dateString(new Date(sheet.updatedAt))}</span>
                           </div>
-                          <span className="flex flex-row items-center gap-2">
+                          <span className="flex flex-row items-center xs:gap-2 xs:justify-between w-full lg:justify-center lg:gap-4">
                               {sheet.isPublic ? <MdPublic /> : <MdLock />}
                                     {sheet.isPublic ? "Public" : "Private"}
-                                    {isAuthor && <Tooltip title='Edit Sheet' placement="top"><button className="bg-black py-2 px-4 text-white rounded flex flex-row items-center gap-2" onClick={() => setEditSheet(true)}><MdEdit /><span className="xs:sr-only lg:not-sr-only  ">Edit Sheet</span></button></Tooltip>}
+                                    {isAuthor && <Tooltip title='Edit Sheet' placement="top"><button className="bg-black outline outline-1 outline-white py-2 px-4 text-white rounded flex flex-row items-center gap-2" onClick={() => setEditSheet(true)}><MdEdit /><span className="xs:sr-only lg:not-sr-only  ">Edit Sheet</span></button></Tooltip>}
                                   </span>
                     
                                 </div>
@@ -481,8 +482,9 @@ const SingleSheetPage = ({ params }: { params: { sheetId: string } }) => {
                                   {sheet.description}
                                 </div>
             </div>
-            <div className="flex flex-col gap-2 w-1/5   ">
-              {isAuthor && <button className="bg-blue-500 py-2 px-4 rounded text-white font-semibold xs:text-sm lg:text-xl" onClick={() => handleStatusChange()}>{publishStatus}</button>}
+            <div className="flex flex-col gap-2 w-1/6 items-center   ">
+              {isAuthor && <button className="bg-blue-500 py-2 px-4 rounded text-white font-semibold xs:hidden lg:flex lg:text-xl" onClick={() => handleStatusChange()}>{publishStatus}</button>}
+              {isAuthor && <button className={clsx(' text-white xs:flex lg:hidden flex flex-col gap-0.5 items-center font-semibold text-sm')} onClick={()=>handleStatusChange()}>{publishStatus === 'PUBLISHED' ? <><button className="p-3 bg-green-500 rounded-full"><MdPublishedWithChanges /></button><span>Unpublish</span> </>:<><button className="p-3 rounded-full bg-red-500"><MdUnpublished /></button><span>Publish</span></>}</button>}
               {isAuthor && <div className="flex flex-col gap-2  w-full xs:hidden lg:flex">
                 <QuestionCreation sheetId={sheet.id} />
                 <FolderCreation sheet={sheet} />

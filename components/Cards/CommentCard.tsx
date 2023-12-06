@@ -59,11 +59,11 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment,currentUserId }) => {
       <div className='relative' >
             {replyModal && <ReplyModal onClose={() => setReplyModal(false)} parentComment={comment} />}
           <div className='flex flex-col  gap-2  lg:p-2 bg-white/10 text-white  rounded xs:p-0.5 '>
-              <div className="flex flex-row items-center justify-between">
-                  <span className='flex flex-row items-center lg:gap-2 xs:gap-0.5'>
+              <div className="flex flex-row items-center justify-between w-full">
+                  <span className='flex flex-row items-center lg:gap-2 xs:gap-0.5 justify-between '>
                       <Image src={comment?.author?.image || '/images/user.png'} alt='avatar' width={40} height={40} className='rounded-full p-1 h-11 w-11 bg-white' />
-                        <span className='lg:text-lg xs:text-sm font-semibold '>{comment.author.name}</span>
-                        <span className='lg:text-sm xs:text-xs font-semibold bg-black/90 text-white py-1 px-4 rounded'>{dateString(new Date(comment.updatedAt))}</span>
+                        <span className='lg:text-lg xs:text-sm font-semibold lg:line-clamp-2 xs:line-clamp-1'>{comment.author.name}</span>
+                        <span className='lg:text-sm xs:text-xs font-semibold bg-black/90 text-white xs:py-0.5 lg:py-1 lg:px-4 xs:px-1 rounded'>{dateString(new Date(comment.updatedAt))}</span>
                   </span>
                   {comment.authorId===currentUserId &&   <div className='relative'><button onClick={() => setUpdateModal((prev) => !prev)}>{updateModal ? <MdCancel size={24} /> : <MdSettings size={24} />}</button>
                         {updateModal && <CommentUpdateModal comment={comment} onClose={() => setUpdateModal(false)} />}

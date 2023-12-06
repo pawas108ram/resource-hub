@@ -64,7 +64,7 @@ const QuestionComments = ({
   return (
     <>
       {questionComments && questionComments.length > 0 ? (
-        <div className="flex flex-col gap-1 p-2 bg-black/80 rounded max-h-full overflow-y-auto ">
+        <div className="flex flex-col gap-1 p-2 bg-black rounded max-h-full overflow-y-auto ">
           {questionComments.map((comment) => (
             <QuestionComment
               key={comment.id}
@@ -76,7 +76,7 @@ const QuestionComments = ({
           ))}
         </div>
       ) : (
-        <span className="bg-black text-white p-2 rounded text-center text-2xl font-semibold ">
+        <span className="bg-white/10 text-white p-2 rounded text-center text-2xl font-semibold ">
           No Discussion Started Yet{" "}
         </span>
       )}

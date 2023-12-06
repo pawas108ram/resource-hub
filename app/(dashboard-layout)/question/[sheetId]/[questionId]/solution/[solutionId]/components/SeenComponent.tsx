@@ -47,9 +47,9 @@ const SeenComponent = ({ solutionId}: { solutionId: number}) => {
    
 
   return (
-    <div className='flex flex-row items-center gap-1 text-black/90 '>
+    <div className='flex flex-row items-center gap-1 text-white  '>
     <IoEye />
-    <span className='text-sm'>Seen By:</span>
+    <span className='text-sm xs:hidden lg:flex'>Seen By:</span>
     <span className='text-sm'>{seenCount}</span>
 </div>
   )

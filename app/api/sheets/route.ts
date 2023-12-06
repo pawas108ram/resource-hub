@@ -17,6 +17,9 @@ export async function POST(req:Request,res:Response){
         if (keys < 0) {
             return new NextResponse('Too few keys', { status: 400 });
         }
+        if (!isPublic && (keys < 1 || keys > 10)) {
+            return new NextResponse('Keys are required in between 1 to 10 for private resources', { status: 400 });
+        }
         if (keys > 10) {
             return new NextResponse('Too many keys', { status: 400 });
         }

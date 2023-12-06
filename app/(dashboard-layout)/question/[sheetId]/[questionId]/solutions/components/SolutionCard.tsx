@@ -30,7 +30,7 @@ const SolutionCard = ({ solution ,sheetId,questionId}: { solution: UserSolutionT
         alt="user"
         width={40}
         height={40}
-        className="rounded-full"
+        className="rounded-full p-1 bg-white"
       />
       <div className="flex flex-col gap-0.5 w-full">
         <div className="grid grid-cols-12 xs:gap-x-1 w-full xs:text-xs xl:text-sm">

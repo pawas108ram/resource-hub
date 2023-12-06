@@ -45,7 +45,7 @@ const EditQuestionCommentModal = ({ onClose,comment }: { onClose: () => void ,co
   }
   return (
     <div className='fixed inset-0 bg-black/40 z-40 flex flex-row items-center justify-center'> 
-      <div className='bg-black p-4 rounded max-w-md w-full flex flex-col gap-2 relative text-white'>
+      <div className='bg-black p-4 rounded  w-5/6 flex flex-col gap-2 relative text-white'>
         <button className='absolute -right-5 -top-5 bg-red-600 p-3 rounded-full' onClick={onClose}><MdClose /></button>
         <SubHeading body='Edit Comment' className='underline' />
         <TextareaAutosize className='w-full bg-white/20 rounded p-2 form-textarea placeholder:text-white/80 resize-none' minRows={5} value={body} onChange={(e)=>setBody(e.target.value as string)} />
@@ -164,9 +164,9 @@ const QuestionComment = ({ comment, questionId, currentUser, isReply, parentComm
     <>
       {editModal && <EditQuestionCommentModal onClose={() => setEditModal(false)} comment={commentNew} />}
      {replyModal && <CreateQuestionReplyModal onClose={()=>setReplyModal(false)} parentComment={commentNew} />}
-      <div className='flex flex-col lg:gap-1 xs:gap-0.5 w-full bg-black/60 p-2 rounded text-white '>
+      <div className='flex flex-col lg:gap-1 xs:gap-0.5 w-full bg-white/10 p-2 rounded text-white '>
         {isReply && <span className='lg:text-sm xs:text-xs'>Replying to @{ parentComment?.author.name}</span>}
-        <div className='flex flex-row items-start lg:gap-4 '>
+        <div className='flex flex-row items-start lg:gap-4 w-full xs:gap-2 '>
 
           <Image src={commentNew.author.image || '/images/user.png'} alt='author' width={50} height={50} className='rounded-full object-cover h-7 w-7 bg-blue-300' />
           <span className='xs:text-xs lg:text-sm' >{commentNew.author.name}</span>

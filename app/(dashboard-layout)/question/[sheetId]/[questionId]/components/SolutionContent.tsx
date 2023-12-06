@@ -16,7 +16,7 @@ const SolutionContent = ({ sol }: { sol: Solution }) => {
     <>
       {editSolution && <EditSolutionModal onClose={()=>setEditSolution(false)} sol={sol} />}
       <div className="flex flex-col gap-1">
-          <div className='bg-white py-2 rounded flex xl:flex-row items-center text-black justify-around px-6 xs:flex-col xs:gap-y-2 xs:items-center xl:items-start w-full '>
+          <div className='bg-white xs:py-0.5 xs:px-1 xs:gap-y-0.5 py-2 rounded flex xl:flex-row items-center text-black justify-around px-6 xs:flex-col  xs:items-center xl:items-start w-full '>
           <span className='font-bold text-lg  xl:w-3/12 truncatestyle-1 xs:w-full xs:text-center xl:text-start'>{sol.title}</span>
           <div className='flex flex-col gap-0.5  xl:w-3/12 xs:w-full xs:items-center'>
             <span className='whitespace-nowrap text-xs font-semibold'>

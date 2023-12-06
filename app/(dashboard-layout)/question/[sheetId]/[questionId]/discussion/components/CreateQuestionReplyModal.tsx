@@ -30,7 +30,7 @@ const CreateQuestionReplyModal = ({ onClose, parentComment }: { onClose: () => v
     }
   return (
     <div className='fixed inset-0 bg-black/40 z-40 flex flex-row items-center justify-center'> 
-      <div className='bg-black p-4 rounded max-w-md w-full flex flex-col gap-3 relative text-white'>
+      <div className='bg-black p-4 rounded w-5/6 flex flex-col gap-3 relative text-white'>
               <button className='absolute -right-5 -top-5 bg-red-600 p-3 rounded-full' onClick={onClose}><MdClose /></button>
               <Content body={`Replying to @${parentComment.author.name}`} />
             

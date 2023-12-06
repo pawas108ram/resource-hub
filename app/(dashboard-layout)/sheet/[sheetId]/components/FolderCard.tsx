@@ -92,7 +92,7 @@ const FolderCard: React.FC<FolderCardProps> = ({ folder, sheetId, isAuthor, ques
           
           
               </div>
-              <div className='flex flex-row items-center gap-4 bg-gray-400 py-1 px-4 text-black rounded text-xs '>
+              <div className='flex lg:flex-row items-center lg:gap-4 bg-white/10 py-1 px-4 text-white xs:flex-col xs:gap-0.5 rounded text-xs '>
                       <span>Created: { dateString(new Date(folder.createdAt)) }</span>
                       <span>Updated: { dateString(new Date(folder.updatedAt)) }</span>
               </div>
@@ -102,10 +102,10 @@ const FolderCard: React.FC<FolderCardProps> = ({ folder, sheetId, isAuthor, ques
                       open: { opacity: 1, scaleY:1 ,display:'flex' },
                         closed: { opacity: 0, scaleY:0 ,display:'none'}
                   }
-              } transition={{ duration: 0.5 }} className={clsx('flex flex-col gap-2 w-full ')} >
+              } transition={{ duration: 0.5 }} className={clsx('flex flex-col lg:gap-2 xs:gap-1 w-full ')} >
                   <div className='bg-white text-black text-sm p-2 rounded flex flex-col gap-1 '>
-                      <SubHeading body='Description'  className='underline'/>
-                      <span>{folder.description}</span>
+                      <SubHeading body='Description'  className='underline xs:text-base lg:text-2xl'/>
+                      <span className='xs:text-sm lg:text-base'>{folder.description}</span>
                   </div>
                   {filterQuestions!==undefined && filterQuestions.length!==0 ?(filterQuestions.map((question) => {
                       return <QuestionCard key={question.id} question={question} sheetId={sheetId} isAuthor={isAuthor} />

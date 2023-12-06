@@ -58,14 +58,14 @@ const Replies: React.FC<RepliesCardProps> = ({ parentComment,currentUserId }) =>
                           <div className='flex flex-row items-center justify-between lg:px-4 xs:px-1'>
                               <div className='flex flex-row items-center lg:gap-4 xs:gap-0.5  '>
                                   <Image src={reply?.author?.image || '/images/user.png'} alt='avatar' width={30} height={30} className='rounded-full p-1 bg-white h-9 w-9'/>
-                                  <span className='lg:text-sm xs:text-xs font-semibold '>{reply.author.name}</span>
-                                  <span className='lg:text-sm xs:text-xs font-semibold bg-black/90 text-white py-1 px-4 rounded'>{dateString(new Date(reply.updatedAt))}</span>
+                                  <span className='lg:text-sm xs:text-xs font-semibold xs:line-clamp-1 lg:line-clamp-2 '>{reply.author.name}</span>
+                                  <span className='lg:text-sm xs:text-xs font-semibold bg-black/90 text-white xs:py-0.5  lg:py-1 lg:px-4 xs:px-1 rounded'>{dateString(new Date(reply.updatedAt))}</span>
                               </div>
                               {reply.authorId===currentUserId &&   <div className='relative'><button onClick={() => setUpdateModal((prev) => !prev)}>{updateModal ? <MdCancel size={24} /> : <MdSettings size={24} />}</button>
                                   {updateModal && <CommentUpdateModal comment={reply} onClose={() => setUpdateModal(false)} />}
                               </div>}
                           </div>
-                          <Content body={reply.body || ''} className='  lg:text-sm xs:text-xs text-white font-medium ' />
+                          <Content body={reply.body || ''} className='  lg:text-sm xs:text-xs text-white bg-black font-medium xs:py-1 xs:px-1' />
                           <div className='flex flex-row items-center lg:gap-4 xs:gap-1 lg:px-4 xs:px-1 justify-between'>
                               <button className='text-sm  flex flex-row gap-2 items-center' onClick={() => SheetCommentLikeAction(reply.id)}><span className='bg-green-500 p-2 rounded-full'><BiSolidLike size={18}  /></span><span>{reply?.likes?.length}</span></button>
                               <button className='text-sm  flex flex-row gap-2 items-center ' onClick={() => SheetCommentDisLikeAction(reply.id)}><span className='bg-red-500 p-2 rounded-full'><BiSolidDislike size={18} /></span><span>{reply?.dislikes?.length}</span></button>

@@ -91,11 +91,11 @@ const MobileSheetSideBar: React.FC<MobileSheetSideBarProps> = ({ ownSheets, ownR
                                   </div>
                                   <Heading body='Search' className='text-green-600 p-3 bg-black rounded w-full inline-block text-center' />
                     <div className="flex flex-row gap-2 items-center py-4 justify-center  ">
-                        <input type="text" name="search" id="search" className='bg-gray-50 p-3 rounded w-4/5 ' placeholder='Search Sheets' onChange={(e) => setSearchTitle(e.target.value)} />
+                        <input type="text" name="search" id="search" className='bg-white/30 p-3 rounded w-4/5 ' placeholder='Search Sheets' onChange={(e) => setSearchTitle(e.target.value)} />
                   
                     </div>
                   
-                                      {(filterOwnSheets.length > 0 || filterUserResources.length>0 || filterUserSheets.length>0 || filterOwnResources.length > 0) && <div className='flex flex-col gap-2 bg-white w-5/6 p-2 rounded items-center mx-auto overflow-scroll max-h-[400px]   '>
+                                      {(filterOwnSheets.length > 0 || filterUserResources.length>0 || filterUserSheets.length>0 || filterOwnResources.length > 0) && <div className='flex flex-col gap-2 bg-white/10 text-white w-5/6 p-2 rounded items-center mx-auto overflow-scroll max-h-[400px]   '>
                                           {resource === 'SHEET' && <div className='flex flex-col gap-4 w-full'>
                                               {filterOwnSheets.length > 0 && <div className='flex flex-col gap-4 items-center'>
                                                   <SubHeading body='Own Sheets' />

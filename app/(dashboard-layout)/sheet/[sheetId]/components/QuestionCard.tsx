@@ -62,10 +62,10 @@ const QuestionCard = ({ question ,sheetId,isAuthor}: { question: FullQuestionTyp
                     <Link href={`/question/${sheetId}/${question.id}`} className='lg:text-lg border-b-[3px] border-white p-1  truncatestyle-1 flex-1 xs:text-sm '><button>{question.title}</button></Link>
             
                 </div>
-              <div className='flex flex-row items-center gap-4 w-full justify-around'>
+              <div className='flex flex-row items-center lg:gap-4 w-full justify-around xs:gap-1'>
             
             
-                    <span className={clsx(' py-1 lg:px-4  rounded  text-center text-white font-semibold text-sm w-1/3 xs:px-2 xs:text-xs lg:text-sm ', handleStatusBackGroundColor(status))} >{status}</span>
+                    <span className={clsx(' py-1 lg:px-4  rounded  text-center text-white font-semibold text-sm w-1/3 xs:px-1 xs:text-xs lg:text-sm ', handleStatusBackGroundColor(status))} >{status}</span>
                     <span className={clsx(' py-1 lg:px-4  rounded bg-black/90 text-white  text-center font-semibold text-sm w-1/3 xs:px-2 xs:text-xs lg:text-sm ')} >{question.difficulty}</span>
                     
             

@@ -84,16 +84,25 @@ const CodeComponent = ({ questionId }: { questionId: number }) => {
         
           <TextareaAutosize name="Description" id="Description" className='text-white bg-black p-2 form-textarea rounded resize-y min-h-[12rem]' placeholder='Enter Explanation for approach' minRows={40} onChange={(e) => setDescription(e.target.value)} disabled={loading} value={description} />
           <label htmlFor="complexity" className='text-2xl font-bold tracking-wider'>Complexity of the Approach</label>
-          <div className='flex flex-row items-center bg-white/60 text-black p-2 rounded gap-6'>
+          <div className='flex lg:flex-row xs:flex-col xs:gap-1 items-center bg-white/10 text-white p-2 rounded lg:gap-6'>
         
-            <Select placeholder='Time Complexity' options={complexities} className='text-black w-1/2 ' value={timeComplexity} maxMenuHeight={300} required onChange={(e: any) => setTimeComplexity(e)} isDisabled={loading} />
-            <Select className='w-1/2 ' options={complexities} placeholder='Space Complexity' value={spaceComplexity} maxMenuHeight={300} required onChange={(e: any) => setSpaceComplexity(e)} isDisabled={loading} />
+            <span className='flex flex-col gap-0.5 w-full '>
+              <span className='xs:text-sm lg:text-lg'>Time Complexity</span>
+              <Select placeholder='Time Complexity' options={complexities} className='text-black w-1/2 xs:w-full ' value={timeComplexity} maxMenuHeight={300} required onChange={(e: any) => setTimeComplexity(e)} isDisabled={loading} />
+            </span>
+            <span className="flex flex-col gap-0.5 w-full">
+              <span className='xs:text-sm lg:text-lg'>Space Complexity</span>
+              <Select className='w-1/2 xs:w-full ' options={complexities} placeholder='Space Complexity' value={spaceComplexity} maxMenuHeight={300} required onChange={(e: any) => setSpaceComplexity(e)} isDisabled={loading} /></span>
           </div>
           <label htmlFor="setting" className='text-2xl font-bold tracking-wider'>Approach Custom Setting</label>
-          <div className='flex flex-row items-center bg-white/60 text-black p-2 rounded gap-6'>
+          <div className='flex flex-row items-center bg-white/10 text-white p-2 rounded gap-6 xs:flex-col xs:gap-1'>
         
-            <Select placeholder='Type of Approach' options={solutionTypes} className='text-black w-1/2 ' maxMenuHeight={300} required onChange={(e) => setType(e?.value as SolutionType)} isDisabled={loading} />
-            <Select className='w-1/2 ' options={accesstypes} placeholder='Share Mode' maxMenuHeight={300} required onChange={(e) => setShareMode(e?.value as AccessType)} isDisabled={loading} />
+            <span className='flex flex-col gap-0.5 w-full'>
+              <span className='xs:text-sm lg:text-lg'>Type of Approach</span>
+              <Select placeholder='Type of Approach' options={solutionTypes} className='text-black w-1/2 xs:w-full ' maxMenuHeight={300} required onChange={(e) => setType(e?.value as SolutionType)} isDisabled={loading} /></span>
+            <span className="flex flex-col gap-0.5 w-full">
+              <span className='xs:text-sm lg:text-lg'>Share Mode</span>
+              <Select className='w-1/2 xs:w-full ' options={accesstypes} placeholder='Share Mode' maxMenuHeight={300} required onChange={(e) => setShareMode(e?.value as AccessType)} isDisabled={loading} /></span>
           </div>
           <label htmlFor="code" className='text-2xl font-bold tracking-wider'>Code</label>
           <TextareaAutosize name="code" id="code" className='form-textarea  bg-black text-white  rounded  p-2 resize-y min-h-[12rem]' placeholder='Enter Code for approach' minRows={40} onChange={(e) => setCode(e.target.value)} disabled={loading} value={code} />

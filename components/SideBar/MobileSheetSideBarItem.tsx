@@ -11,6 +11,7 @@ import { MdDelete, MdPublic } from "react-icons/md";
 import { RiGitRepositoryPrivateFill } from "react-icons/ri";
 import SettingButton from "../buttons/SheetSettingButton";
 import { FullResourceType, FullSheetType } from "@/app/(dashboard-layout)/resource/layout";
+import ResourceSetting from "@/app/(dashboard-layout)/resource/components/ResourceSetting";
 
 interface MobileSheetSideBarItemProps {
   resource?: FullResourceType;
@@ -62,7 +63,7 @@ const MobileSheetSideBarItem: React.FC<MobileSheetSideBarItemProps> = ({
   return (
     <>
       {(resource || userresource) && (
-        <span className="flex flex-col items-center justify-center gap-2 p-3 bg-gray-100 rounded w-full">
+        <span className="flex flex-col items-center justify-center gap-2 p-3 bg-white/10 rounded w-full">
           <Link
             href={`/resource/${resource?.id || userresource?.id}`}
             className="text-lg"
@@ -84,21 +85,23 @@ const MobileSheetSideBarItem: React.FC<MobileSheetSideBarItemProps> = ({
                   : "Private"}
               </span>
             </div>
-            <span className="flex flex-col items-center gap-1">
-              <PackagePlus />
-              {userresource
-                ? dateString(new Date(userresource.createdAt))
-                : dateString(new Date(resource?.createdAt || ""))}
-            </span>
-            <span className="flex flex-col items-center gap-1">
-              <Pencil />
-              {userresource
-                ? dateString(new Date(userresource.updatedAt))
-                : dateString(new Date(resource?.updatedAt || ""))}
-            </span>
+            <div className="flex flex-col gap-0.5">
+              <span className="flex flex-row items-center gap-1">
+              <span>Created:</span>
+                {userresource
+                  ? dateString(new Date(userresource.createdAt))
+                  : dateString(new Date(resource?.createdAt || ""))}
+              </span>
+              <span className="flex flex-row items-center gap-1">
+                <span>Updated:</span>
+                {userresource
+                  ? dateString(new Date(userresource.updatedAt))
+                  : dateString(new Date(resource?.updatedAt || ""))}
+              </span>
+            </div>
           </span>
           {userresource && (
-            <div className="flex flex-row w-full  items-center  gap-6 ">
+            <div className="flex flex-row w-full  items-center  gap-6 justify-between ">
               <button
                 className="bg-green-500 p-1 rounded-full"
                 onClick={() => handleLike()}
@@ -111,11 +114,12 @@ const MobileSheetSideBarItem: React.FC<MobileSheetSideBarItemProps> = ({
               >
                 <ThumbsDown />
               </button>
+              <button className="bg-white text-black p-3 rounded-full" onClick={()=>DeleteResource(userresource.id)}><MdDelete/></button>
             </div>
           )}
           {resource && (
             <div className="flex flex-col gap-2 w-full">
-              <div className="flex flex-row w-full  items-center  gap-6 ">
+              <div className="flex flex-row w-full  items-center  gap-6 justify-between ">
                 <span className=" flex flex-row items-center gap-2">
                   <span className="p-1 bg-green-500 rounded-full">
                     <ThumbsUp />
@@ -128,20 +132,15 @@ const MobileSheetSideBarItem: React.FC<MobileSheetSideBarItemProps> = ({
                   </span>
                   : {resource.likes?.length || "0"}
                 </span>
+                <ResourceSetting resource={resource} />
               </div>
-              <button
-                className="bg-black p-2 text-white rounded-full w-full gap-4  flex flex-row items-center"
-                onClick={() => DeleteResource(resource.id)}
-              >
-                <MdDelete size={24} />
-                <span>Delete Resource</span>
-              </button>
+             
             </div>
           )}
         </span>
       )}
       {(sheet || usersheet) && (
-        <span className="flex flex-col items-center p-3 gap-2 bg-gray-100 rounded  justify-center w-full">
+        <span className="flex flex-col items-center p-3 gap-2 bg-white/10 rounded  justify-center w-full">
           <Link
             href={`/sheet/${sheet?.id || usersheet?.id}`}
             className="text-lg"
@@ -161,18 +160,20 @@ const MobileSheetSideBarItem: React.FC<MobileSheetSideBarItemProps> = ({
                 {sheet?.isPublic || usersheet?.isPublic ? "Public" : "Private"}
               </span>
             </div>
-            <span className="flex flex-col items-center gap-1">
-              <PackagePlus />
-              {dateString(
-                new Date(sheet?.createdAt || usersheet?.createdAt || "")
-              )}
-            </span>
-            <span className="flex flex-col items-center gap-1">
-              <Pencil />
-              {dateString(
-                new Date(sheet?.updatedAt || usersheet?.updatedAt || "")
-              )}
-            </span>
+            <div className="flex flex-col gap-0 5">
+              <span className="flex flex-row items-center gap-1">
+                <span>Created:</span>
+                {dateString(
+                  new Date(sheet?.createdAt || usersheet?.createdAt || "")
+                )}
+              </span>
+              <span className="flex flex-row items-center gap-1">
+                <span>Updated:</span>
+                {dateString(
+                  new Date(sheet?.updatedAt || usersheet?.updatedAt || "")
+                )}
+              </span>
+            </div>
           </span>
           {usersheet && (
             <div className="flex flex-row w-full  items-center  gap-6 ">
