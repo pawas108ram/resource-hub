@@ -32,7 +32,7 @@ const ControlBar = ({title,setTitle}:{title:string,setTitle:React.Dispatch<React
       {filterModal && <FilterModal onClose={() => setFilterModal(false)} />}
 
       
-      <div className="flex flex-col gap-1 w-full">
+      <div className="flex flex-col gap-1 w-full ">
         <div className={clsx('lg:p-4 bg-white/10  flex flex-row items-center gap-2  xs:justify-between xs:p-2 rounded xs:w-full   ',searchModal && 'flex flex-col gap-1 ')}>
        <>
        <div className='flex flex-row items-center gap-4 w-full lg:justify-start xs:justify-between'>

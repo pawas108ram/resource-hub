@@ -58,7 +58,7 @@ const ConfirmUserModal: React.FC<EditUserModalProps> = ({ onClose, currentUser }
   }
   
   return (
-    <div className='fixed inset-0 bg-black/40 z-[999999] flex flex-row items-center justify-center'>
+    <div className='fixed inset-0 bg-black/40 z-[99999] flex flex-row items-center justify-center'>
       <div className='flex flex-col p-2 bg-black rounded lg:w-2/5 xs:w-5/6 gap-2 relative'>
         <button className='absolute -right-5 -top-5 bg-red-600 p-3 rounded-full' onClick={onClose}><MdClose /></button>
         <SubHeading body='Confirm Delete' className='text-white border-b-4 border-white w-full' />

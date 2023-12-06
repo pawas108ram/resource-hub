@@ -64,6 +64,7 @@ const SheetLayout = ({ children }: { children: React.ReactNode }) => {
         
             pusherClient.bind('create:sheet', (data: FullSheetType) => {
                 if (currentUser?.id === data.authorId) {
+                    
                     setOwnSheets((prev) => [...prev, data]);
                 }
                 else {

@@ -114,8 +114,8 @@ const SheetPage = () => {
 
 
   return (
-    <div className="flex flex-col w-full gap-4  xs:py-24 lg:py-32   xs:items-center lg:items-start bg-black min-h-screen text-white  ">
-      <div className="w-full   fixed xs:top-16 z-20 lg:top-0   ">
+    <div className="flex flex-col w-full gap-4  xs:py-24 lg:py-32   xs:items-center lg:items-start bg-black min-h-screen text-white   ">
+      <div className="w-full   fixed xs:top-16  lg:top-0   ">
         <ControlBar title={searchTitle} setTitle={setSearchTitle} />
       </div>
       <div className="flex flex-row items-center ">
