@@ -61,7 +61,7 @@ const SheetLayout = ({ children }: { children: React.ReactNode }) => {
     
     useEffect(() => {
         pusherClient.subscribe('sheet');
-        if (currentUser) {
+        
             pusherClient.bind('create:sheet', (data: FullSheetType) => {
                 if (currentUser?.id === data.authorId) {
                     setOwnSheets((prev) => [...prev, data]);
@@ -86,7 +86,7 @@ const SheetLayout = ({ children }: { children: React.ReactNode }) => {
                 setOwnSheets((prev) => prev.filter((sheet) => sheet.id !== data));
                 setUserSheets((prev) => prev.filter((sheet) => sheet.id !== data));
             });
-        }
+      
         return () => {
             pusherClient.unsubscribe('sheet');
             pusherClient.unbind('create:sheet');
@@ -99,7 +99,7 @@ const SheetLayout = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
 
         pusherClient.subscribe('resource');
-        if (currentUser) {
+        
             pusherClient.bind('create:resource', (data: FullResourceType) => {
                 if (currentUser?.id === data.authorId) {
                     setOwnResources((prev) => [...prev, data]);
@@ -112,13 +112,13 @@ const SheetLayout = ({ children }: { children: React.ReactNode }) => {
                 setOwnResources((prev) => prev.filter((resource) => resource.id !== data));
                 setUserResources((prev) => prev.filter((resource) => resource.id !== data));
             });
-        }
+      
         return () => {
             pusherClient.unsubscribe('resource');
             pusherClient.unbind('create:resource');
             pusherClient.unbind('delete:resource');
         }
-    }, [ownSheets, ownResources, currentUser])
+    }, [ownSheets, ownResources,currentUser])
    
   return (
     <div className='flex lg:flex-row w-full items-start h-full xs:flex-col  '>

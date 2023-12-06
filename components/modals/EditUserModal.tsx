@@ -28,8 +28,11 @@ const ConfirmUserModal: React.FC<EditUserModalProps> = ({ onClose, currentUser }
   
   const handleChange = (e: any) => {
     setTitle(e.target.value);
-    if(e.target.value==currentUser.profileLink){
+    if(e.target.value===currentUser.profileLink){
       setDelete(true);
+    }
+    else {
+      setDelete(false);
     }
   }
 
@@ -63,7 +66,7 @@ const ConfirmUserModal: React.FC<EditUserModalProps> = ({ onClose, currentUser }
         <input type="text" className='bg-white/10 text-white form-input' placeholder='Ente the code above' onChange={(e)=>handleChange(e)} name="" id="" />
         <div className='flex flex-row items-center gap-4 justify-center'>
           <button className='bg-red-500 py-1 px-4 rounded' onClick={onClose}>Cancel Delete</button>
-          <button className={clsx('bg-green-300 py-1 px-4 rounded pointer-events-none',deleteacceppted && 'pointer-events-auto bg-green-600')} onClick={()=>handleDelete()}>Confirm Delete</button>
+          <button className={clsx(' py-1 px-4 rounded pointer-events-none',deleteacceppted===true? 'pointer-events-auto bg-green-600':'pointer-events-none bg-green-300')} onClick={()=>handleDelete()}>Confirm Delete</button>
         </div>
         
 
