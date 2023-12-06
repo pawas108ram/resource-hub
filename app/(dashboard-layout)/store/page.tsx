@@ -48,7 +48,7 @@ const StorePage = () => {
       <div className='bg-black/90 w-full max-h-screen text-white flex flex-col items-center p-4 gap-8 overflow-hidden xs:p-2 xs:pb-32 lg:pb-0 '>
           {currentUser !== null ? <> <Heading body='ResourceHub Store' className='text-white underline' />
               <div className='flex flex-row  gap-2 items-center justify-end p-2 w-full h-full overflow-hidden '>
-                  <div className="flex flex-col gap-1 outline outline-1 outline-white py-2 px-4 items-center ">
+                  <div className="flex flex-col gap-1 outline outline-1 outline-white py-2 px-4 items-center flex-shrink-0 ">
             <span className='   font-semibold flex flex-row items-center gap-2  '><FaCoins size={20} /> {currentUser.coins} coins</span>
                         <span className='   font-semibold flex flex-row items-center gap-2'><Image src='/images/pendrive.png' width={18} height={18} alt='pendrive'/>   {currentUser.keys} pendrives</span>
                   </div>
