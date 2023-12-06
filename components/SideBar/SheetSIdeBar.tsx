@@ -51,7 +51,7 @@ const SheetSideBar: React.FC<SheetSideBarProps> = ({ ownSheets, userSheets }) =>
     return (
         <>
             
-            <div className='bg-black w-80 lg:flex flex-col gap-8  sticky top-0 h-screen  overflow-y-scroll p-4 xs:hidden z-20  '>
+            <div className='bg-black w-80 lg:flex flex-col gap-8  sticky top-0 h-screen  overflow-y-auto p-4 xs:hidden z-20  '>
                 <Heading body='Search' className='text-gray-100 whitespace-nowrap' />
                 <div className="flex flex-row gap-2 items-center py-2 ">
                     <input type="text" name="search" id="search" className='bg-gray-50 p-2 rounded w-full' placeholder='Search Sheets' onChange={(e) => setSearchTitle(e.target.value)} />

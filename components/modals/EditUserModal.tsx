@@ -41,7 +41,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ onClose, currentUser }) =
   return (
       
           <div className='fixed inset-0 z-[99999] bg-black/60  flex flex-row items-center justify-center '>
-              <div className='xs:w-4/5 lg:w-2/5 p-4  bg-white   rounded flex flex-col gap-4 relative  '>
+              <div className='xs:w-4/5 lg:w-2/5 p-4  bg-black text-white  rounded flex flex-col gap-4 relative  '>
               <button className='absolute -right-5 -top-5 bg-red-600 p-3 rounded-full' onClick={onClose}><MdClose/></button>
                   <SubHeading body='Edit User' className='text-gray-700 border-b-4 border-gray-800 w-full' />
                   <form onSubmit={handleSubmit(onSubmit)} className='p-4 flex flex-col gap-4'>
@@ -55,20 +55,21 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ onClose, currentUser }) =
                         text-sm
                         font-medium
                         leading-6
-                        text-gray-900
+                        text-white
                       "
                     >
                       Photo
                     </label>
-                    <div className="mt-2 flex items-center gap-x-3">
+                    <div className="mt-2 flex items-center gap-x-3 text-white">
                       <Image
                               width={50}
                               height={50}
-                        className="rounded-full object-contain h-11 w-11"
-                        src={image || currentUser?.image || '/images/placeholder.jpg'}
-                        alt="Avatar"
+                        className="rounded-full object-contain h-11 w-11 bg-white p-1"
+                        src={image || currentUser?.image || '/images/user.png'}
+                alt="Avatar"
+                
                               />
-                              <CldUploadButton onUpload={handleUpload} options={{maxFiles:1}} uploadPreset='f12lx4bt'><Button secondary type='button' disabled={isLoading} >Change Image</Button></CldUploadButton>
+                              <CldUploadButton onUpload={handleUpload} options={{maxFiles:1}} uploadPreset='f12lx4bt' ><Button secondary type='button'  disabled={isLoading} >Change Image</Button></CldUploadButton>
                           </div>
           
                       </div>
