@@ -93,7 +93,7 @@ const FolderCreationModal = ({ onClose ,sheet}: { onClose: () => void ,sheet:Sin
  
     
     return <div className='fixed  bg-black/40 flex flex-row items-center justify-center z-[9999999] inset-0'>
-        <div className='bg-black text-white  p-4 rounded xs:w-4/5 lg:w-2/5 relative flex flex-col gap-8 xs:h-3/5 xs:overflow-hidden  '>
+        <div className='bg-black text-white  p-4 rounded xs:w-4/5 lg:w-2/5 relative flex flex-col gap-8 xs:h-3/5 lg:h-auto lg:overflow-visible xs:overflow-hidden  '>
             <button className='absolute lg:-right-5 lg:-top-5 bg-red-600 p-3 rounded-full xs:top-2 xs:right-2 ' onClick={onClose}><MdClose /></button>
             <SubHeading body='Create Folders for Question' />
             <form className='flex flex-col gap-4 h-full overflow-hidden ' onSubmit={handleSubmit}>

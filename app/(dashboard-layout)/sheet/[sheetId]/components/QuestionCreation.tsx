@@ -83,7 +83,7 @@ const QuestionCreationModal = ({ onClose ,sheetId,folderId}: { onClose: () => vo
  
     
     return <div className='fixed inset-0 bg-black/40 flex flex-row items-center justify-center z-[999999]'>
-        <div className='bg-black  p-4 rounded xs:w-4/5 lg:w-2/5 relative flex flex-col gap-8 text-white lg:h-auto xs:h-3/5 xs:overflow-y-auto   '>
+        <div className='bg-black  p-4 rounded xs:w-5/6 lg:w-3/5 relative flex flex-col gap-8 text-white lg:h-auto xs:h-3/5 xs:overflow-y-auto lg:overflow-visible   '>
             <button className='absolute lg:-right-5 lg:-top-5 bg-red-600 p-3 rounded-full xs:top-2 xs:right-2' onClick={onClose}><MdClose /></button>
             <SubHeading body='Create Question' />
             <form className='flex flex-col gap-4 h-full overflow-hidden' onSubmit={handleSubmit}>
