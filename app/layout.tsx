@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: 'Resource Hub',
   description: 'All tech resources community',
 }
-
+export const dynamic = 'force-dynamic'
 export default function RootLayout({
   children,
 }: {
