@@ -61,9 +61,9 @@ const SheetLayout = ({ children }: { children: React.ReactNode }) => {
     
     useEffect(() => {
         pusherClient.subscribe('sheet');
-        
+        if (currentUser) {
             pusherClient.bind('create:sheet', (data: FullSheetType) => {
-                if (currentUser?.id === data.authorId) {
+                if (currentUser.id === data.authorId) {
                     
                     setOwnSheets((prev) => [...prev, data]);
                 }
@@ -71,6 +71,7 @@ const SheetLayout = ({ children }: { children: React.ReactNode }) => {
                     setUserSheets((prev) => [...prev, data]);
                 }
             });
+        }
             pusherClient.bind('user:sheet', (data: FullSheetType) => {
                 setUserSheets((prev) => {
                     const index = prev.findIndex((sheet) => sheet.id === data.id);

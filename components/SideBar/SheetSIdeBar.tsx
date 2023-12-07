@@ -19,7 +19,7 @@ interface SheetSideBarProps {
 
 const SheetSideBar: React.FC<SheetSideBarProps> = ({ ownSheets, userSheets }) => {
     const [searchTitle, setSearchTitle] = useState('');
-    const [filterOwnSheets, setFilterOwnSheets] = useState<FullSheetType[]>(ownSheets);
+    const [filterOwnSheets, setFilterOwnSheets] = useState<FullSheetType[] >(ownSheets);
     const [filterUserSheets, setFilterUserSheets] = useState<FullSheetType[]>(userSheets);
     
     useEffect(() => {

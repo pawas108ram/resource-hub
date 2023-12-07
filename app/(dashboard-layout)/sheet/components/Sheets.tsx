@@ -60,10 +60,9 @@ const Sheets: React.FC<SheetsProps> = ({ data ,currentUserId,currentUserKeys}) =
 
   
   return (
-    <div className='relative w-full '>
-      {(new Date(Date.now()).getMonth() === new Date(data.createdAt).getMonth()) &&  (new Date(Date.now()).getDate()-new Date(data.createdAt).getDate())<1 && <div className='flex flex-row absolute -top-2 -right-2 p-1 px-4 rounded-full bg-green-500 z-0 '>
-        <span className='text-xs font-semibold text-white -z-10'>NEW</span>
-      </div>}
+    <div className='w-full '>
+     
+    
       <div className='lg:p-4 bg-black/80 text-white rounded flex flex-col gap-2 w-full   mr-12 xs:p-1  '>
         {commentModal && <CommentModal currentUserId={currentUserId} onClose={()=>setCommentModal(false)} sheetId={data.id}  />}
       

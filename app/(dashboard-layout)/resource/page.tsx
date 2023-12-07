@@ -14,14 +14,15 @@ import { useSession } from "next-auth/react";
 import { GiConsoleController } from "react-icons/gi";
 import { useSearchParams } from "next/navigation";
 import { pusherClient } from "@/app/libs/pusher";
+import Loader from "@/components/Loader";
 
 const ResourcePage = () => {
   const [searchTitle, setSearchTitle] = useState("");
-  const [privateResource, setPrivateResource] = useState<FullResourceType[]>(
-    []
+  const [privateResource, setPrivateResource] = useState<FullResourceType[] | null>(
+    null
   );
-  const [publicResource, setPublicResource] = useState<FullResourceType[]>([]);
-  const [resources, setResources] = useState<FullResourceType[]>([]);
+  const [publicResource, setPublicResource] = useState<FullResourceType[] | null>(null);
+  const [resources, setResources] = useState < FullResourceType[] | null>(null);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const session = useSession();
   const email = session.data?.user?.email;
@@ -71,14 +72,14 @@ const ResourcePage = () => {
     fetchResources();
   }, [searchParamsString]);
   useEffect(() => {
-    if (searchTitle === "") {
+    if (searchTitle === "" && resources) {
       setPrivateResource(
         resources.filter((resource: FullResourceType) => !resource.isPublic)
       );
       setPublicResource(
         resources.filter((resource: FullResourceType) => resource.isPublic)
       );
-    } else if (searchTitle !== "") {
+    } else if (searchTitle !== "" && resources) {
       setPrivateResource(
         resources.filter(
           (resource: FullResourceType) =>
@@ -126,42 +127,54 @@ const ResourcePage = () => {
     }
     pusherClient.subscribe("resource");
     pusherClient.bind('remove:resource', (data: number) => {
-      setPrivateResource((prevUserResources) =>
-        prevUserResources.filter((resource) => resource.id !== data)
-      );
-      setPublicResource((prevUserResources) =>
-        prevUserResources.filter((resource) => resource.id !== data)
-      );
+      setPrivateResource((prev) => prev?.filter((resource) => resource.id !== data)|| []);
+      setPublicResource((prev) => prev?.filter((resource) => resource.id !== data) || []) ;
+      
+      
+     
     });
   },[resourceFilterTags,resources])
 
   return (
-    <div className="flex flex-col gap-3 p-4 h-screen w-full overflow-y-auto bg-black text-white   ">
+    <div className="flex flex-col gap-3 p-4 h-screen  w-full overflow-y-auto bg-black text-white   ">
       <ResourceControlBar title={searchTitle} setTitle={setSearchTitle} resourceFilterTags={resourceFilterTags} setResourceFilterTags={setResourceFilterTags} />
       <Heading body="Public resources" className="whitespace-nowrap" />
-      {currentUser && publicResource.length !== 0 ? (
+      {currentUser && publicResource &&  publicResource.length !== 0 ? (
         <div className="p-4 bg-white/10 rounded w-full grid xl:grid-cols-3  lg:gap-x-4  lg:gap-y-4 xs:grid-cols-2 xs:gap-x-2 xs:gap-y-2 lg:grid-cols-3">
           {publicResource.map((resource) => (
             <ResourceCard currentUserId={currentUser.id}  key={resource.id} publicResource={resource} />
           ))}
         </div>
-      ) : (
+      ) : publicResource && publicResource.length === 0 ? (
         <span className="text-xl bg-white/60 text-black p-3 rounded text-center font-semibold">
-          No Public Resources made yet{" "}
+          No Public Resources made yet
         </span>
-      )}
+      ) : (
+        <span className="flex flex-row items-center p-4 bg-white/10 rounded justify-center ">
+         <Loader/>
+        </span>
+      )
+          
+      }
       <Heading body="Private resources" className="whitespace-nowrap" />
-      {currentUser && privateResource.length !== 0 ? (
+      {currentUser && privateResource && privateResource.length !== 0 ? (
         <div className="p-4 bg-white/10 rounded w-full grid xl:grid-cols-3  lg:gap-x-4  lg:gap-y-4 xs:grid-cols-2 xs:gap-x-2 xs:gap-y-2 lg:grid-cols-3">
           {privateResource.map((resource) => (
             <ResourceCard currentUserId={currentUser.id} key={resource.id} privateResource={resource} currentUserKeys={currentUser.keys} />
           ))}
         </div>
-      ) : (
+      ) : privateResource && privateResource.length === 0 ? (
         <span className="text-xl bg-white/60 text-black p-3 rounded text-center font-semibold">
           No Private Resources made yet
         </span>
+      ) : (
+        <span className="flex flex-row items-center p-4 bg-white/10 rounded justify-center ">
+          <Loader/>
+        </span>
       )}
+  
+
+    
     </div>
   );
 };
