@@ -73,10 +73,11 @@ const SheetSideBarItem: React.FC<SheetSideBarItemProp> = ({
           </span>
           <div className="flex flex-row flex-wrap gap-4">
             <Link
-              href={`/sheet/${sheet?.id || userSheet?.id}`}
+              href={`/sheet/${sheet?.id || userSheet?.id}`} passHref
               className="text-sm font-semibold rounded truncate"
             >
-              {sheet?.title as string || userSheet?.title as string}
+              <a href={`/sheet/${sheet?.id || userSheet?.id}`}>
+              {sheet?.title as string || userSheet?.title as string}</a>
             </Link>
           </div>
 
