@@ -76,7 +76,7 @@ const SheetSideBarItem: React.FC<SheetSideBarItemProp> = ({
               href={`/sheet/${sheet?.id || userSheet?.id}`}
               className="text-sm font-semibold rounded truncate"
             >
-              {sheet?.title || userSheet?.title}
+              {sheet?.title as string || userSheet?.title as string}
             </Link>
           </div>
 
