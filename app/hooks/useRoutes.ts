@@ -23,31 +23,31 @@ const useRoutes = () => {
     const routes = useMemo(() => [
         {
             label: 'Dashboard',
-            href:'/dashboard',
+            href:'dashboard',
             icon: AiTwotoneHome,
             isActive: pathname === '/dashboard'
         },
         {
             label: 'Sheets',
-            href:'/sheet',
+            href:'sheet',
             icon: BsFileEarmarkSpreadsheetFill,
             isActive:pathname === '/sheet'
         },
         {
             label: 'Resources',
-            href:'/resource',
+            href:'resource',
             icon: GrResources,
             isActive:pathname === '/resource'
         },
         {
             label: 'LeaderBoard',
-            href: `/leaderboard?page=1`,
+            href: `leaderboard?page=1`,
             icon: MdLeaderboard,
             isActive:pathname === `/leaderboard` || !!page
         },
         {
             label: 'Store',
-            href: '/store',
+            href: 'store',
             icon: FaStore,
             isActive:pathname === '/store'
 
