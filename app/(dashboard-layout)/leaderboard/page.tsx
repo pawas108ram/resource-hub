@@ -33,7 +33,7 @@ const LeaderBoardPage = () => {
           <Heading body='LeaderBoard' className='text-white underline' />
           <div className='flex flex-col items-center gap-2 bg-white/10 rounded p-2 lg:w-5/6 xs:w-full h-full overflow-y-auto'>
               {leaderBoardUsers !== null ? leaderBoardUsers?.map((user, ele) => (
-                 <UserCard key={ele} user={user} ranking={(parseInt(page-1)*10)+ele+1} />
+                 <UserCard key={ele} user={user} ranking={((parseInt(page)-1)*10)+ele+1} />
               )) : <div className='flex flex-col items-center justify-center gap-1 h-full w-full'>
                       <Loader />
                       <span>Loading...</span>
